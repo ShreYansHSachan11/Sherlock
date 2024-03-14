@@ -1,0 +1,17 @@
+.homepage{
+    background: url(../../assets/back2.jpg);
+    width:100vw;
+    min-height:100vh;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    
+
+}
+
+
+.herocontent{
+    margin:50px  0 0 0;
+    padding:10px;
+
+}
