@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { createWorker } from 'tesseract.js';
+import axios from 'axios';
 import './upload.css'
 
 const Fileuploader = () => {
@@ -19,14 +20,32 @@ const Fileuploader = () => {
     convertImageToText();
   }, [selectedImage, convertImageToText])
 
-  const handleChangeImage = e => {
-    if(e.target.files[0]) {
-      setSelectedImage(e.target.files[0]);
-    } else {
-      setSelectedImage(null);
-      setTextResult("")
-    }
+  const handleChangeImage = async (e) => {
+  if (!e.target.files[0]) {
+    setSelectedImage(null);
+    setTextResult("");
+    return;
   }
+
+  setSelectedImage(e.target.files[0]);
+
+  const formData = new FormData();
+  formData.append("name", "saurabh rajput");
+  formData.append("file", e.target.files[0]);
+  formData.append("textdata", "hello good value ");
+
+  try {
+    const response = await axios.post("https://sherlock-backend-4.onrender.com/filedata", formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
   return (
     <div className="Dropbox">

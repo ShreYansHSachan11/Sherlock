@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+
 import './Home.css';
 import Navbar from '../Navbar/Navbar';
 import Contact from '../../contact';
@@ -27,7 +28,7 @@ const Home = () => {
       </div>
         </div>
         <div className="herocontent-right">
-         <Apitester/>
+        
         </div>
         
       </div>
