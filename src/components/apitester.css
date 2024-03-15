@@ -1,0 +1,53 @@
+/* TextAnalyzer.css */
+
+  
+ 
+  
+  .anonymizeSection{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .anonymizeSection-upper{
+    display: flex;
+    width: 100vw;
+    /* flex-direction: row; */
+    justify-content: center;
+    align-items: center;
+  }
+
+  textarea{
+      height:400px;
+      width:400px;
+    /* width:50%; */
+  }
+
+  .rightbox{
+    height:400px;
+      width:400px;
+      background-color: black;
+    display: flex;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  inputText{
+   width: 400px;
+   word-wrap: break-word;
+  }
+  .anonymizeSection-middle{
+    display: flex;
+    width: 70vw;
+    padding: auto;
+    margin: 20px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .anonymizeSection-lower
+  {
+    display: flex;
+  }

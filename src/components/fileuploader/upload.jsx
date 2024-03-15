@@ -16,11 +16,29 @@ const Fileuploader = () => {
     setTextResult(data.text);
   }, [worker, selectedImage]);
 
+
+  const tomlmodel = useCallback(async () => {
+    try {
+      const response = await axios.post('https://ab54-35-229-225-98.ngrok-free.app/', {
+        textResult: textResult,
+      });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [textResult]);
+
   useEffect(() => {
     convertImageToText();
+    
   }, [selectedImage, convertImageToText])
 
-  const handleChangeImage = async (e) => {
+  useEffect(() => {
+    tomlmodel();
+    
+  }, [selectedImage])
+
+  const uploadingtodatabase = async (e) => {
   if (!e.target.files[0]) {
     setSelectedImage(null);
     setTextResult("");
@@ -53,7 +71,7 @@ const Fileuploader = () => {
       <p><b>Upload your Document</b> <br />in form of images(png, jpeg,etc.)</p>
       <div className="input-wrapper">
         <label htmlFor="upload">Upload Image</label>
-        <input type="file" id="upload" accept='image/*' onChange={handleChangeImage} />
+        <input type="file" id="upload" accept='image/*' onChange={uploadingtodatabase} />
       </div>
 
       <div className="result">
