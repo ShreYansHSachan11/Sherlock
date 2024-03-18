@@ -1,8 +1,5 @@
-/* TextAnalyzer.css */
 
-  
- 
-  
+
   .anonymizeSection{
     display:flex;
     flex-direction: column;
@@ -13,16 +10,16 @@
   .anonymizeSection-upper{
     display: flex;
     width: 100vw;
-    /* flex-direction: row; */
+  
     justify-content: center;
     align-items: center;
   }
 
-  textarea{
+  /* textarea{
       height:400px;
       width:400px;
-    /* width:50%; */
-  }
+   
+  } */
 
   .rightbox{
     height:400px;

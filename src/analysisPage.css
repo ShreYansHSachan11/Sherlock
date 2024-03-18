@@ -1,0 +1,96 @@
+.analysisPage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width:100vw;
+    height:100vh;
+    
+}
+
+.dataBoxes{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.analysisPage .box{
+width:35vw;
+height:70vh;
+/* background-color: grey; */
+margin:15px;
+border:2px solid grey;
+}
+
+.analysisPage-leftSection{
+  width:70vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.anonymizedButtons{
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+}
+
+.anonymizedButtons .btn1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:20px 10px;
+}
+
+.originalDataField img{
+  width:30vw;
+  /* height:50vh; */
+}
+
+.originalDataField{
+    word-wrap: break-word;
+    padding: 10px;
+}
+
+
+.anonymizedData img{
+width:300px;
+height:500px;
+}
+
+.entity-PERSON {
+    background-color: yellow;
+    font-weight: bold;
+  }
+  
+  .entity-ORGANIZATION {
+    background-color: lightblue;
+    font-style: italic;
+  }
+  
+  /* Add more styles for other entity types as needed */
+  
+  .highlighted{
+    background-color: yellowgreen;
+  }
+  
+  .toggleButtons {
+    margin-top: 20px;
+  }
+  
+  .toggleButton {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #ccc;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .toggleButton.active {
+    background-color: #00f;
+    color: #fff;
+  }
+  
+  .highlighted {
+    background-color: yellow;
+  }
+  

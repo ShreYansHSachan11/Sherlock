@@ -68,7 +68,7 @@ const Fileuploader = () => {
   return (
     <div className="Dropbox">
       
-      <p><b>Upload your Document</b> <br />in form of images(png, jpeg,etc.)</p>
+     
       <div className="input-wrapper">
         <label htmlFor="upload">Upload Image</label>
         <input type="file" id="upload" accept='image/*' onChange={uploadingtodatabase} />

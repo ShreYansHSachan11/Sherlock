@@ -1,0 +1,79 @@
+.homepage-container {
+    text-align: center;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+  }
+  
+  .homepage-heading {
+    font-size: 2.5rem;
+    color: #333;
+  }
+  
+  .input-sections {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .input-section {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .input-label {
+    font-size: 1.2rem;
+    margin-right: 10px;
+  }
+  
+
+  
+  .image-upload {
+    padding: 10px;
+    font-size: 1rem;
+    
+    overflow-wrap: anywhere;
+    word-wrap: break-word;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+.proceedButton{
+    width:100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+  .btn1 {
+    display: block;
+    margin-top: 20px;
+    width:200px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .btn1:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  textarea{
+    word-wrap: break-word;
+    word-break: break-all;
+    height: 300px;
+    width:600px;
+}
+  
+  
