@@ -38,16 +38,9 @@ function AnalysisPage() {
 
   useEffect(() => {
     if (state && state.anonymizedData) {
-      // Check if the received data is text or image
-      if (typeof state.anonymizedData === 'string') {
-        // Data is text, process entities
-        const { text } = state.originalData;
-        const anonymizedText = highlightEntities(text, state.anonymizedData, visibleEntities);
-        setAnonymizedContent(<div className="anonymizedDataField" dangerouslySetInnerHTML={{ __html: anonymizedText }}></div>);
-      } else {
-        // Data is image, set anonymized content to null
-        setAnonymizedContent(null);
-      }
+      const { text } = state.originalData;
+      const anonymizedText = highlightEntities(text, state.anonymizedData, visibleEntities);
+      setAnonymizedContent(<div className="anonymizedDataField" dangerouslySetInnerHTML={{ __html: anonymizedText }}></div>);
     }
   }, [state, visibleEntities]);
 
