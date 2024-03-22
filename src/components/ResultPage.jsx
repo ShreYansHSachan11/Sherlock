@@ -9,7 +9,6 @@ const ResultPage = () => {
     <div>
       <h1>Result Page</h1>
       <p>Input Text: {inputText}</p>
-      {/* Add your result display logic here */}
     </div>
   );
 }

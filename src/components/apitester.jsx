@@ -1,73 +1,43 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import './apitester.css';
+import React from 'react';
 
-function TextAnalyzer() {
-  const [inputText, setInputText] = useState('');
-  const [personalInfo, setPersonalInfo] = useState({});
-  const [nameStart, setNameStart] = useState(0);
-  const [nameEnd, setNameEnd] = useState(0);
-  const [contactStart, setContactStart] = useState(0);
-  const [contactEnd, setContactEnd] = useState(0);
-  const [visibility, setVisibility] = useState({ name: true, contact: true });
+const ByteImageComponent = () => {
+    const generateByteImage = () => {
+        // Create a canvas element
+        const canvas = document.createElement('canvas');
+        canvas.width = 100; // Width of the image
+        canvas.height = 100; // Height of the image
 
-  const analyzeText = async () => {
-    const analyzedInfo = {
-      name: [{ startIndex: nameStart, endIndex: nameEnd }],
-      contact: [{ startIndex: contactStart, endIndex: contactEnd }],
+        // Get the 2D context of the canvas
+        const ctx = canvas.getContext('2d');
+
+        // Draw something on the canvas
+        ctx.fillStyle = 'red';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Convert the canvas image to a data URL
+        const dataURL = canvas.toDataURL();
+
+        return dataURL;
     };
-    setPersonalInfo(analyzedInfo);
-    history.push({
-      pathname: '/result',
-      state: { inputText: inputText }
-    });
-  };
 
-  const handleToggle = (group) => {
-    setVisibility((prevVisibility) => ({
-      ...prevVisibility,
-      [group]: !prevVisibility[group],
-    }));
-  };
+    const byteImageDataURL = generateByteImage();
 
-  return (
-    <div className='anonymizeSection'>
-      <textarea
-        value={inputText}
-        onChange={(e) => setInputText(e.target.value)}
-        rows={10}
-        cols={50}
-      />
-      <div className='anonymizeSection-middle'>
-        <div>
-          <label>Name Start Index:</label>
-          <input type="number" value={nameStart} onChange={(e) => setNameStart(parseInt(e.target.value))} />
-        </div>
-        <div>
-          <label>Name End Index:</label>
-          <input type="number" value={nameEnd} onChange={(e) => setNameEnd(parseInt(e.target.value))} />
-        </div>
-        <div>
-          <label>Contact Start Index:</label>
-          <input type="number" value={contactStart} onChange={(e) => setContactStart(parseInt(e.target.value))} />
-        </div>
-        <div>
-          <label>Contact End Index:</label>
-          <input type="number" value={contactEnd} onChange={(e) => setContactEnd(parseInt(e.target.value))} />
-        </div>
-      </div>
-      <div className='anonymizeSection-lower'>
-        <button onClick={analyzeText}><NavLink to={{ pathname: "/result", state: { inputText } }}>Analyze Text</NavLink></button>
-        {Object.keys(personalInfo).map((group) => (
-          <div className='toggle' key={group}>
-            <button onClick={() => handleToggle(group)}>
-              {visibility[group] ? `Hide ${group}` : `Show ${group}`}
-            </button>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+  
+    const byteDataIndex = byteImageDataURL.indexOf('base64,') + 'base64,'.length;
+    const byteData = byteImageDataURL.substring(byteDataIndex);
+    console.log(byteData)
+   
+    const cleanByteData = byteData.replace(/\s/g, '');
 
-export default TextAnalyzer;
+   
+    console.log(cleanByteData);
+
+    return (
+        <div>
+            <h2>Byte Image Example</h2>
+            <img src={byteImageDataURL} alt="Byte Image" />
+        </div>
+    );
+};
+
+export default ByteImageComponent;

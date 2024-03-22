@@ -1,11 +1,11 @@
 .analysisPage{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    /* flex-direction: column; */
+    /* justify-content: center; */
     align-items: flex-start;
     width:100vw;
     height:100vh;
-    
+    padding: 20px 0;
 }
 
 .dataBoxes{
@@ -14,13 +14,15 @@
   align-items: center;
 }
 
-.analysisPage .box{
-width:35vw;
-height:70vh;
+.box{
+width:30vw;
+height:80vh;
 /* background-color: grey; */
 margin:15px;
 border:2px solid grey;
+padding: 10px;
 }
+
 
 .analysisPage-leftSection{
   width:70vw;
@@ -30,15 +32,33 @@ border:2px solid grey;
 
 .anonymizedButtons{
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items:center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.analysisPage-rightSection
+{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .anonymizedButtons .btn1{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin:20px 10px;
+    margin:20px 20px;
+    width:180px;
+    padding: 10px 10px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
 }
 
 .originalDataField img{
@@ -57,21 +77,39 @@ width:300px;
 height:500px;
 }
 
-.entity-PERSON {
-    background-color: yellow;
-    font-weight: bold;
-  }
+
   
-  .entity-ORGANIZATION {
-    background-color: lightblue;
-    font-style: italic;
-  }
+.entitiesList{
+  width: 20vw;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
   
-  /* Add more styles for other entity types as needed */
+
+.entitiesScrollBar{
+  width: 25vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+  max-height: 500px;
+}
+
+.entityButton{
+  margin: 10px;
+  flex-wrap: wrap;
+  background: grey;
+}
+
+.entityButton.active{
+  background-color: green;
+}
+
   
-  .highlighted{
-    background-color: yellowgreen;
-  }
   
   .toggleButtons {
     margin-top: 20px;
@@ -91,6 +129,6 @@ height:500px;
   }
   
   .highlighted {
-    background-color: yellow;
+    background-color: rgba(153, 205, 50, 0.517);
   }
   
