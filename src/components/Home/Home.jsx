@@ -148,7 +148,7 @@ const Home = () => {
   return (
     <>
       <div className="homepage">
-        {/* <Navbar /> */}
+        <Navbar />
         <Routes>
           <Route path="/" element={<Price />} />
           <Route path="/about" element={<About />} />

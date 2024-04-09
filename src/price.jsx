@@ -1,21 +1,54 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import lottie from "lottie-web";
+import uploadFile from './assets/upload.json'
+import { FileUploader } from "react-drag-drop-files";
 import "./price.css";
+
+
+const fileTypes = ["JPG"];
+
 
 function Homepage() {
   const navigate = useNavigate();
   const [text, setText] = useState("");
   const [image, setImage] = useState(null);
   const [myid, setMyid] = useState("");
+  const [proceedActive, setProceedActive] = useState(false);
 
   const handleTextChange = (e) => {
     setText(e.target.value);
+    setProceedActive(e.target.value !== "" || image !== null);
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
+  
+
+  
+  const handleChange = (file) => {
     setImage(file);
+    setProceedActive(file !== "" || text !== "");
+  };
+  
+  React.useEffect(() => {
+    const animationContainer = document.querySelector("#uploadFile");
+  
+    if (animationContainer && !animationContainer.querySelector("svg")) {
+      lottie.loadAnimation({
+        container: animationContainer,
+        // renderer: "svg", 
+        autoplay: true,
+        animationData: uploadFile, 
+      });
+    }
+  }, []);
+
+  const handleProceed = () => {
+    if (text !== "") {
+      handlingText();
+    } else {
+      handlingImage();
+    }
   };
 
   function handlingText() {
@@ -49,7 +82,7 @@ function Homepage() {
     const postingtexttoML = async () => {
       try {
         const response = await axios.post(
-          "http://127.0.0.1:8000/text",
+          "https://amanetize-sherlock.hf.space/text",
           { text },
           {
             headers: {
@@ -121,7 +154,7 @@ function handlingImage()
       let formData = new FormData();
       formData.append("file", image);
       const response = await axios.post(
-        "http://127.0.0.1:8000/image",
+        "https://amanetize-sherlock.hf.space/image",
         image,
         {
           headers: {
@@ -151,32 +184,38 @@ function handlingImage()
 
 return (
   <div className="homepage-container">
-    <div className="input-sections">
-      <div className="input-section">
-        <textarea
-          className="text-area"
-          value={text}
-          onChange={handleTextChange}
-          disabled={image !== null}
-        />
-        <button className="btn1" onClick={handlingText} disabled={!text || image}>
-          Submit Text
-        </button>
-      </div>
+    <div className="homepage-container-content">
 
+    
+   <h3>ANONYMIZER</h3>
+    <div className="input-sections">
+      
       <div className="input-section">
-        <input
-          className="image-upload"
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          disabled={text.trim() !== ""}
-        />
-        <button className="btn1" onClick={handlingImage} disabled={!image || text}>
-          Submit Image
-        </button>
+      <textarea
+              className="text-area"
+              value={text}
+              onChange={handleTextChange}
+              disabled={image !== null}
+              placeholder="Enter Text Here"
+            />
       </div>
+        <h6>OR</h6>
+      <div className="input-section">
+        
+
+      <div id="uploadFile" style={{ width: 280, height: 280 }} />
+      <FileUploader handleChange={handleChange} name="file" className="drop_area drop_zone" types={fileTypes} label="Upload or Drag & drop files" />
+      </div>
+     
     </div>
+    <button
+              className="btn1"
+              onClick={handleProceed}
+              disabled={!proceedActive}
+            >
+              PROCEED
+            </button>
+  </div>
   </div>
 );
 }

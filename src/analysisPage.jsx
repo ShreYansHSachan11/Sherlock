@@ -5,7 +5,7 @@ import './analysisPage.css';
 function highlightEntities(text, entities, visibleEntities) {
   if (!Array.isArray(entities)) {
     console.error("Entities is not an array.");
-    return text; // Return unmodified text
+    return text;
   }
 
   let highlightedText = text;
@@ -24,7 +24,6 @@ function highlightEntities(text, entities, visibleEntities) {
   return highlightedText;
 }
 
-// Function to escape special characters in regular expressions
 function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -72,7 +71,6 @@ function AnalysisPage() {
   }
 
   useEffect(() => {
-    // Set all entities active initially
     if (uniqueEntities.length > 0) {
       setVisibleEntities(uniqueEntities);
     }
@@ -81,14 +79,20 @@ function AnalysisPage() {
 
   return (
     <div className="analysisPage">
+      <h3>ANONYMIZER</h3>
+      <div className="analysisPageSections">
+       
+     
       <div className="analysisPage-leftSection">
         <div className="dataBoxes">
-          <div className="originalData box">
+          {/* <div className="originalData box">
             <h3>Original Data</h3>
             <div className="originalDataField">{originalContent}</div>
-          </div>
+          </div> */}
+           {/* <h3>Anonymized Data</h3> */}
           <div className="anonymizedData box">
-            <h3>Anonymized Data</h3>
+           
+            
             {anonymizedContent}
           </div>
         </div>
@@ -97,7 +101,10 @@ function AnalysisPage() {
       <div className="analysisPage-rightSection">
 
       <div className="entitiesList">
-        <h3>Entities</h3>
+        <div className="entitiesHeader">
+        <h6>Choose Entities to Anonymize</h6>
+        </div>
+        
         <div className="entitiesScrollBar">
           <div className="entityButtonsContainer">
             {uniqueEntities.map(entity => (
@@ -111,12 +118,25 @@ function AnalysisPage() {
             ))}
           </div>
         </div>
+
       </div>
       <div className="anonymizedButtons">
-          <button className="btn1">Download</button>
-          <button className="btn1">Share</button>
+      <select name="anonymizationType" id="anonymizationType">
+    <option value="" selected="selected">Choose Anonymization Type</option>
+    <option value="" >Faker</option>
+    <option value="" >Redact</option>
+    <option value="" >Hash</option>
+    <option value="" >Mask</option>
+  </select>
         </div>
         </div>
+        </div>
+        <button
+              className="btn1"
+              
+            >
+              SUBMIT
+            </button>
     </div>
   );
 }

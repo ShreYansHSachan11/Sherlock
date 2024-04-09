@@ -11,7 +11,7 @@ const Navbar = () => {
   <>                     
                 <div className='navbar'>
                     <div className="navbar-left">
-                        <img src={logo} alt="" srcSet="" />
+                        {/* <img src={logo} alt="" srcSet="" /> */}
                         <h2>HIDE</h2>
                     </div>
                     <div className="navbar-center">
@@ -21,7 +21,7 @@ const Navbar = () => {
                             style={({ isActive }) => ({
                                 color: isActive
                                     ? "grey"
-                                    : "white",
+                                    : "black",
                             })}
                         >
                             Home
@@ -33,10 +33,10 @@ const Navbar = () => {
                             style={({ isActive }) => ({
                                 color: isActive
                                     ? "grey"
-                                    : "white",
+                                    : "black",
                             })}
                         >
-                            About
+                            Analyze
                         </NavLink>
                     </div>
                     <div style={{ margin: "10px" }}>
@@ -45,10 +45,10 @@ const Navbar = () => {
                             style={({ isActive }) => ({
                                 color: isActive
                                     ? "grey"
-                                    : "white",
+                                    : "black",
                             })}
                         >
-                            Contact
+                            Anonymize
                         </NavLink>
                     </div>
 
@@ -58,35 +58,21 @@ const Navbar = () => {
                             style={({ isActive }) => ({
                                 color: isActive
                                     ? "grey"
-                                    : "white",
+                                    : "black",
                             })}
                         >
-                            Services
+                            Help
                         </NavLink>
                     </div>
 
-                    <div style={{ margin: "10px" }}>
-                        <NavLink
-                            to="/price"
-                            style={({ isActive }) => ({
-                                color: isActive
-                                    ? "grey"
-                                    : "white",
-                            })}
-                        >
-                            Pricing
-                        </NavLink>
-                    </div>
+                   
                     </div>
                     <div className="navbar-right">
                      <button className="signin">
-                       <img src={user} alt="" srcSet="" />
-                        Sign in
+                       {/* <img src={user} alt="" srcSet="" /> */}
+                        Sign In
                      </button>
-                     <button className="dropfile">
-                     <img src={upload} alt="" srcSet="" />
-                        Drop File
-                     </button>
+                    
                     </div>
                 </div>
                 
