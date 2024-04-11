@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import lottie from "lottie-web";
 import uploadFile from './assets/upload.json'
+import loader from './assets/analyzing.json'
 import { FileUploader } from "react-drag-drop-files";
 import "./price.css";
 
@@ -16,14 +17,14 @@ function Homepage() {
   const [image, setImage] = useState(null);
   const [myid, setMyid] = useState("");
   const [proceedActive, setProceedActive] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const handleTextChange = (e) => {
     setText(e.target.value);
     setProceedActive(e.target.value !== "" || image !== null);
   };
 
-  
-
+   
   
   const handleChange = (file) => {
     setImage(file);
@@ -36,14 +37,27 @@ function Homepage() {
     if (animationContainer && !animationContainer.querySelector("svg")) {
       lottie.loadAnimation({
         container: animationContainer,
-        // renderer: "svg", 
+        
         autoplay: true,
-        animationData: uploadFile, 
+        animationData: {...uploadFile}, 
       });
     }
   }, []);
 
+  React.useEffect(() => {
+    const animationContainer = document.querySelector("#loader");
+  
+    if (animationContainer && !animationContainer.querySelector("svg")) {
+      lottie.loadAnimation({
+        container: animationContainer,
+        autoplay: true,
+        animationData: {...loader}, 
+      });
+    }
+  }, [loading]);
+
   const handleProceed = () => {
+    setLoading(true)
     if (text !== "") {
       handlingText();
     } else {
@@ -69,11 +83,15 @@ function Homepage() {
             },
           }
         );
-        navigate("/analysis", {
-          state: { originalData: { text, image }, anonymizedData: response.data },
-        });
+        setTimeout(() => {
+          setLoading(false);
+          navigate("/analysis", {
+            state: { originalData: { text, image }, anonymizedData: response.data },
+          });
+        }, 2000);
         setMyid(response.data.data._id);
       } catch (error) {
+        setLoading(false)
         console.error("Error:", error);
         alert("An error occurred. Please try again later.");
       }
@@ -91,10 +109,14 @@ function Homepage() {
             },
           }
         );
-        navigate("/analysis", {
-          state: { originalData: { text, image }, anonymizedData: response.data },
-        });
+        setTimeout(() => {
+          setLoading(false);
+          navigate("/analysis", {
+            state: { originalData: { text, image }, anonymizedData: response.data },
+          });
+        }, 1000);
       } catch (error) {
+        setLoading(false)
         console.error("Error:", error);
         alert("An error occurred. Please try again later.");
       }
@@ -181,7 +203,6 @@ function handlingImage()
 }
 
   
-
 return (
   <div className="homepage-container">
     <div className="homepage-container-content">
@@ -202,19 +223,25 @@ return (
         <h6>OR</h6>
       <div className="input-section">
         
-
+      
       <div id="uploadFile" style={{ width: 280, height: 280 }} />
       <FileUploader handleChange={handleChange} name="file" className="drop_area drop_zone" types={fileTypes} label="Upload or Drag & drop files" />
       </div>
      
     </div>
-    <button
+    { loading ? (
+      
+      <div id="loader" style={{ width: 140, height: 100}}/>
+    ) :(
+             <button
               className="btn1"
               onClick={handleProceed}
               disabled={!proceedActive}
             >
+             
               PROCEED
             </button>
+    )}
   </div>
   </div>
 );

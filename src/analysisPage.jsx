@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 import './analysisPage.css';
 
 function highlightEntities(text, entities, visibleEntities) {
@@ -34,6 +35,30 @@ function AnalysisPage() {
 
   const [visibleEntities, setVisibleEntities] = useState([]);
   const [anonymizedContent, setAnonymizedContent] = useState(<p>No anonymized data received</p>);
+  const [selectedOption, setSelectedOption] = useState('replace');
+  const [responseText, setResponseText] = useState('');
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+    console.log(selectedOption);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const data = {
+        text: state.originalData.text,
+        entities: visibleEntities,
+        type: selectedOption
+      };
+      const response = await axios.post('https://amanetize-sherlock.hf.space/anonymize', data);
+      setResponseText(response.data.text);
+      console.log(response.data);
+    
+    } catch (error) {
+      console.error('Error:', error);
+     
+    }
+  };
 
   useEffect(() => {
     if (state && state.anonymizedData) {
@@ -79,66 +104,87 @@ function AnalysisPage() {
 
   return (
     <div className="analysisPage">
-      <h3>ANONYMIZER</h3>
-      <div className="analysisPageSections">
-       
-     
-      <div className="analysisPage-leftSection">
-        <div className="dataBoxes">
-          {/* <div className="originalData box">
-            <h3>Original Data</h3>
-            <div className="originalDataField">{originalContent}</div>
-          </div> */}
-           {/* <h3>Anonymized Data</h3> */}
-          <div className="anonymizedData box">
-           
-            
-            {anonymizedContent}
-          </div>
-        </div>
-       
-      </div>
-      <div className="analysisPage-rightSection">
-
-      <div className="entitiesList">
-        <div className="entitiesHeader">
-        <h6>Choose Entities to Anonymize</h6>
-        </div>
+    
+      {responseText ? (
         
-        <div className="entitiesScrollBar">
-          <div className="entityButtonsContainer">
-            {uniqueEntities.map(entity => (
-              <button
-                key={entity}
-                onClick={() => handleToggleEntity(entity)}
-                className={`entityButton ${visibleEntities.includes(entity) ? 'active' : ''}`}
-              >
-                {entity}
-              </button>
-            ))}
+        <div className='finalResult'>
+          <div className="finaltext">
+          {responseText}
           </div>
-        </div>
+          
+          <div className="finalResult-buttons">
+          <button className="btn1" >
+          Save
+        </button>
 
-      </div>
-      <div className="anonymizedButtons">
-      <select name="anonymizationType" id="anonymizationType">
-    <option value="" selected="selected">Choose Anonymization Type</option>
-    <option value="" >Faker</option>
-    <option value="" >Redact</option>
-    <option value="" >Hash</option>
-    <option value="" >Mask</option>
-  </select>
-        </div>
-        </div>
-        </div>
-        <button
-              className="btn1"
-              
-            >
-              SUBMIT
-            </button>
+        <button className="btn1" >
+          Print
+        </button>
+          </div>
+
+          
+        </div> 
+        
+      ) : (
+        <>
+          <h3>ANONYMIZER</h3>
+          <div className="analysisPageSections">
+            <div className="analysisPage-leftSection">
+              <div className="dataBoxes">
+                {/* <div className="originalData box">
+                  <h3>Original Data</h3>
+                  <div className="originalDataField">{originalContent}</div>
+                </div> */}
+                {/* <h3>Anonymized Data</h3> */}
+                <div className="anonymizedData box">
+                  {anonymizedContent}
+                </div>
+              </div>
+            </div>
+            <div className="analysisPage-rightSection">
+              <div className="entitiesList">
+                <div className="entitiesHeader">
+                  <h6>Choose Entities to Anonymize</h6>
+                </div>
+                <div className="entitiesScrollBar">
+                  <div className="entityButtonsContainer">
+                    {/* Map over uniqueEntities */}
+                    {uniqueEntities.map(entity => (
+                      <button
+                        key={entity}
+                        onClick={() => handleToggleEntity(entity)}
+                        className={`entityButton ${visibleEntities.includes(entity) ? 'active' : ''}`}
+                      >
+                        {entity}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="anonymizedButtons">
+                <select
+                  name="anonymizationType"
+                  id="anonymizationType"
+                  value={selectedOption}
+                  onChange={handleOptionChange}
+                  defaultValue="replace"
+                >
+                  <option value="">Choose Anonymization Type</option>
+                  <option value="replace">Replace</option>
+                  <option value="redact">Redact</option>
+                  <option value="hash">Hash</option>
+                  <option value="faker">Faker</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <button className="btn1" onClick={handleSubmit}>
+            SUBMIT
+          </button>
+          </>
+      )}
+    
     </div>
   );
 }
-
 export default AnalysisPage;

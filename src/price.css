@@ -55,7 +55,9 @@
     margin-right: 10px;
   }
   
-
+.loader{
+  color:red;
+}
   
   .image-upload {
     padding: 10px;
@@ -105,6 +107,7 @@
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
+    scrollbar-width: none;
 }
   
   

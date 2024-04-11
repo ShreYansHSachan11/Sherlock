@@ -192,3 +192,34 @@ select{
         padding: 3px;
 
 }
+
+.finalResult{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.finaltext{
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+  width:60vw;
+  height:60vh;
+  color: black;
+  font-size: 16px;
+  overflow-y: scroll;
+  text-align: justify;
+  scrollbar-width: none;
+  border: 1px solid black;
+  padding: 15px;
+  margin-top: 15px;
+}
+
+.finalResult-buttons{
+  width:60vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
