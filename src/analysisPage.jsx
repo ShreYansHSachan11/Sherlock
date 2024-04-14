@@ -103,7 +103,7 @@ function AnalysisPage() {
         entities: visibleEntities,
         type: selectedOption
       };
-      const response = await axios.post('https://amanetize-sherlock.hf.space/anonymize', data);  
+      const response = await axios.post(`${import.meta.env.VITE_REACT_APP_ML_API_KEY}/anonymize`, data);  
       setResponseText(response.data.anonymized_text.text);
       setAnalyticsData(response.data);
       console.log(response.data.entity_mapping);
@@ -138,16 +138,16 @@ function AnalysisPage() {
         }
       );
   
-      // Handle response if needed
+    
     } catch (error) {
       console.error("Error:", error);
       alert("An error occurred. Please try again later.");
     }
   };
   
-  // useEffect(() => {
-  //   updateFilePair();
-  // }, [entityMapping]);
+  useEffect(() => {
+    updateFilePair();
+  }, [entityMapping]);
 
 
   useEffect(() => {
