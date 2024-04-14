@@ -6,11 +6,16 @@ import Navbar from '../Navbar/Navbar';
 import Contact from '../../contact';
 import About from '../../about';
 import Price from '../../price';
-import Services from '../../analysisPage';
+import Services from '../ResultPage';
 import Upload from '../fileuploader/upload';
-import Apitester from '../apitester';
+// import Apitester from '../apitester';
 import ResultPage from '../ResultPage';
 import Analysis from '../../analysisPage'
+import Dashboard from '../../dashboard'
+import Register from '../../register'
+import Login from '../../login'
+import FileData from '../../fileData'
+import Deanonymize from '../../deanonymze'
 
 const Home = () => {
 //   const navigate = useNavigate();
@@ -150,14 +155,19 @@ const Home = () => {
       <div className="homepage">
         <Navbar />
         <Routes>
-          <Route path="/" element={<Price />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/price" element={<Price />} />
-          <Route path="/services" element={<Services />} />
+          {/* <Route path="/" element={<Price />} /> */}
+          <Route path="/analyze" element={<About />} />
+          <Route path="/anonymize" element={<Price />} />
+          <Route path="/help" element={<Services />} />
           <Route path="/analysis" element={<Analysis />} />
           <Route path="/result" element={<ResultPage />} />
-          <Route path="/tester" element={<Apitester />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/fileData" element={<FileData />} />
+          <Route path="/deanonymize" element={<Deanonymize/>} />
+
+          
         </Routes>
         {/* <div className="homepage-container">
     <div className="input-sections">

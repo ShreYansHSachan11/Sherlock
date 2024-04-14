@@ -47,9 +47,17 @@
   .navbar-right{
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width:38%;
   }
 
   .navbar-left img{
+    width:40px;
+    height:40px;
+  }
+
+  .navbar-right img{
     width:50px;
     height:50px;
   }
@@ -84,6 +92,23 @@
 
   .dropfile{
     background-color: #ce2540;
+  }
+
+  .input-field{
+    text-align: center;
+    background-color: #E7F5F5;
+    color: black;
+    margin:0 20px;
+    border: none;
+    height:2.2rem;
+    width:300px;
+    border-radius: 5px;
+    background-image: url(../../assets/search.png);
+    background-repeat: no-repeat;
+    text-indent: 20px;
+    background-size: 7%;
+    background-position: 20%;
+    
   }
 
 

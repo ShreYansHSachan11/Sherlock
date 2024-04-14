@@ -1,7 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './analysisPage.css';
+
+
+const AdvancedAnalytics = ({ analyticsData }) => {
+  return (
+    <div className="advanced-analytics">
+      <h2>Advanced Analytics</h2>
+      <div className="analytics-data">
+        {analyticsData.map((entity, index) => (
+          <div key={index} className="entity">
+            <p><strong>Entity Type:</strong> {entity.entity_type}</p>
+            <p><strong>Recognizer Name:</strong> {entity.recognition_metadata?.recognizer_name}</p>
+            <p><strong>Score:</strong> {entity.score}</p>
+            <p><strong>Start:</strong> {entity.start}</p>
+            <p><strong>End:</strong> {entity.end}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 
 function highlightEntities(text, entities, visibleEntities) {
   if (!Array.isArray(entities)) {
@@ -32,33 +54,101 @@ function escapeRegExp(string) {
 function AnalysisPage() {
   const location = useLocation();
   const { state } = location;
+  const [analyticsData, setAnalyticsData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+  const [fileObject, setFileObject] = useState(null);
 
   const [visibleEntities, setVisibleEntities] = useState([]);
   const [anonymizedContent, setAnonymizedContent] = useState(<p>No anonymized data received</p>);
-  const [selectedOption, setSelectedOption] = useState('replace');
+  const [selectedOption, setSelectedOption] = useState('');
   const [responseText, setResponseText] = useState('');
+  const [entityMapping, setEntityMapping] = useState('');
+  const [filepair, setFilepair] = useState('');
+  
+
+  
+
+  const convertTextToFile = () => {
+   
+    const file = new File([responseText], `anonymizedFile.txt`, { type: "text/plain" });
+    console.log("File object:", file);
+    setFileObject(file);
+    
+  };
+
+
+  useEffect(() => {
+    localStorage.setItem('outputFile', responseText);
+    convertTextToFile();
+  }, [responseText]);
+
+
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
-    console.log(selectedOption);
+    // console.log(selectedOption);
   };
 
   const handleSubmit = async () => {
+    if (!selectedOption) {
+      alert('Please choose an anonymization type.');
+      return; 
+    }
+    
     try {
       const data = {
         text: state.originalData.text,
         entities: visibleEntities,
         type: selectedOption
       };
-      const response = await axios.post('https://amanetize-sherlock.hf.space/anonymize', data);
-      setResponseText(response.data.text);
-      console.log(response.data);
-    
+      const response = await axios.post('https://amanetize-sherlock.hf.space/anonymize', data);  
+      setResponseText(response.data.anonymized_text.text);
+      setAnalyticsData(response.data);
+      console.log(response.data.entity_mapping);
+      const stringifiedEntityMapping = JSON.stringify(response.data.entity_mapping);
+      setEntityMapping(stringifiedEntityMapping); 
+      
     } catch (error) {
       console.error('Error:', error);
      
     }
   };
+
+  const updateFilePair = async () => {
+    if(!entityMapping || !fileObject ) return;
+     
+    try {
+      const formData = new FormData();
+      formData.append("entity", entityMapping);
+      formData.append("status", "anonymized");
+      formData.append('resultdata', fileObject);
+      const id = localStorage.getItem('id');
+      
+      const response = await axios.post(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_API_KEY}/update/filepair/${id}`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+              
+          },
+          timeout: 10000
+        }
+      );
+  
+      // Handle response if needed
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again later.");
+    }
+  };
+  
+  // useEffect(() => {
+  //   updateFilePair();
+  // }, [entityMapping]);
+
 
   useEffect(() => {
     if (state && state.anonymizedData) {
@@ -79,11 +169,10 @@ function AnalysisPage() {
 
   let originalContent;
   if (state && state.originalData) {
-    const { text, image } = state.originalData;
+    const text = state.originalData;
     originalContent = (
       <div>
         {text && <p>{text}</p>}
-        {image && <img src={URL.createObjectURL(image)} alt="Uploaded" />}
       </div>
     );
   } else {
@@ -148,7 +237,7 @@ function AnalysisPage() {
                 </div>
                 <div className="entitiesScrollBar">
                   <div className="entityButtonsContainer">
-                    {/* Map over uniqueEntities */}
+                    
                     {uniqueEntities.map(entity => (
                       <button
                         key={entity}
@@ -167,9 +256,10 @@ function AnalysisPage() {
                   id="anonymizationType"
                   value={selectedOption}
                   onChange={handleOptionChange}
-                  defaultValue="replace"
+                  required
+                  // defaultValue="replace"
                 >
-                  <option value="">Choose Anonymization Type</option>
+                  <option value="" disabled>Choose Anonymization Type</option>
                   <option value="replace">Replace</option>
                   <option value="redact">Redact</option>
                   <option value="hash">Hash</option>
@@ -181,9 +271,10 @@ function AnalysisPage() {
           <button className="btn1" onClick={handleSubmit}>
             SUBMIT
           </button>
+          <button className="btn-analytics" onClick={AdvancedAnalytics}>Advanced analytics</button>
           </>
       )}
-    
+    {analyticsData.length > 0 && <AdvancedAnalytics analyticsData={analyticsData} />}
     </div>
   );
 }

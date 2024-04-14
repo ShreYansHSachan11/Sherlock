@@ -1,23 +1,51 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router,NavLink, Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router,NavLink, Routes, Route, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../../assets/folder.png'
 import upload from '../../assets/upload.png'
 import user from '../../assets/user.png'
+import search from '../../assets/search.png'
+
 const Navbar = () => {
+  const navigate= useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState('');
+    
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    const username = sessionStorage.getItem('username'); 
+    if (token) {
+   
+      setIsLoggedIn(true);
+      setUserName(username); 
+    } else {
+      setIsLoggedIn(false);
+      setUserName('');
+    }
+  }, []);
   
+  const handleSignIn = () => {
+    if (isLoggedIn) {
+  
+      alert('You are already logged in!');
+    } else {
+   
+      navigate('/register');
+    }
+  };
 
   return (
   <>                     
                 <div className='navbar'>
                     <div className="navbar-left">
-                        {/* <img src={logo} alt="" srcSet="" /> */}
-                        <h2>HIDE</h2>
+                       
+                        <h2 style={{color:"grey"}}>HIDE</h2>
                     </div>
                     <div className="navbar-center">
+
                     <div style={{ margin: "10px" }}>
                         <NavLink
-                            to="/"
+                             to="/"
                             style={({ isActive }) => ({
                                 color: isActive
                                     ? "grey"
@@ -27,21 +55,11 @@ const Navbar = () => {
                             Home
                         </NavLink>
                     </div>
+
+                   
                     <div style={{ margin: "10px" }}>
                         <NavLink
-                            to="/about"
-                            style={({ isActive }) => ({
-                                color: isActive
-                                    ? "grey"
-                                    : "black",
-                            })}
-                        >
-                            Analyze
-                        </NavLink>
-                    </div>
-                    <div style={{ margin: "10px" }}>
-                        <NavLink
-                            to="/contact"
+                            to="/anonymize"
                             style={({ isActive }) => ({
                                 color: isActive
                                     ? "grey"
@@ -51,29 +69,62 @@ const Navbar = () => {
                             Anonymize
                         </NavLink>
                     </div>
-
                     <div style={{ margin: "10px" }}>
                         <NavLink
-                            to="/services"
+                            to="/deanonymize"
                             style={({ isActive }) => ({
                                 color: isActive
                                     ? "grey"
                                     : "black",
                             })}
                         >
-                            Help
+                            De-Anonymize
+                        </NavLink>
+                    </div>
+
+                    <div style={{ margin: "10px" }}>
+                        <NavLink
+                             to="/dashboard"
+                            style={({ isActive }) => ({
+                                color: isActive
+                                    ? "grey"
+                                    : "black",
+                            })}
+                        >
+                            Dashboard
+                        </NavLink>
+                    </div>
+
+                    <div style={{ margin: "10px" }}>
+                        <NavLink
+                            to="/guidelines"
+                            style={({ isActive }) => ({
+                                color: isActive
+                                    ? "grey"
+                                    : "black",
+                            })}
+                        >
+                            Guidelines
                         </NavLink>
                     </div>
 
                    
                     </div>
                     <div className="navbar-right">
-                     <button className="signin">
-                       {/* <img src={user} alt="" srcSet="" /> */}
-                        Sign In
-                     </button>
-                    
-                    </div>
+          {/* <img src={search} alt="" srcSet="" /> */}
+          <input className="input-field" type="text" placeholder='Search For Anything' />
+          {isLoggedIn ? (
+            <button className="signin" disabled>
+              {/* <img src={user} alt="" srcSet="" /> */}
+              {userName}
+            </button>
+          ) : (
+            <button className="signin" onClick={handleSignIn}>
+              {/* <img src={user} alt="" srcSet="" /> */}
+              Sign In
+            </button>
+          )}
+        </div>
                 </div>
                 
            

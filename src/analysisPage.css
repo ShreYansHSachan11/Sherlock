@@ -29,7 +29,7 @@
 
 .box {
   width: 50vw;
-  height: 60vh;
+  height: 50vh;
   /* background-color: grey; */
   margin: 15px;
   border: 2px solid grey;
@@ -54,7 +54,7 @@
 
 .anonymizedDataField {
   overflow: scroll;
-  height: 411px;
+  height: 50vh;
   text-align: justify;
   font-size: 17px;
   color: black;
@@ -68,12 +68,14 @@
   align-items: center;
 }
 
- .btn1 {
-  display: block;
-  margin:20px 20px;
+.analysisPage .btn1 {
+  display: flex;
+  margin:10px 20px;
   width: 230px;
   height: 45px;
   padding: 10px 20px;
+  justify-content: center;
+  align-items: center;
   font-size: 1.2rem;
   border-radius: 5px;
   background-color: #00C9B8;
@@ -81,6 +83,23 @@
   border: none;
   cursor: pointer;
 }
+
+.btn-analytics{
+  display: flex;
+  margin:14px 20px;
+  width: 160px;
+  height: 25px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  font-size: 0.7rem;
+  border-radius: 5px;
+  /* background-color: #00C9B8; */
+  color: white;
+  border-bottom: 1px solid black;
+  cursor: pointer;
+}
+
 
 .originalDataField img {
   width: 30vw;
