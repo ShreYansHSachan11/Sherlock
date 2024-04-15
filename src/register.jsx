@@ -111,9 +111,9 @@ const Form = (props) => {
        
         setLoading(true);
         showResult();
-        e.preventDefault();
-        toast.success("Form submitted successfully!");
         
+        toast.success("Form submitted successfully!");
+        e.preventDefault();
       }
     },
     [
@@ -149,10 +149,10 @@ const Form = (props) => {
       },
     })
       .then((result) => {
+        toast.success(`Registration Successful`);
         setLoading(false);
         setRegistered(true);
         localStorage.setItem("thankyou", true);
-        toast.success(`Registration Successful`);
         navigate("/login");
       })
       .catch((err) => {

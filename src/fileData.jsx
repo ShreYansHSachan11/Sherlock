@@ -3,8 +3,8 @@ import './fileData.css';
 
 const FileData = () => {
   // Retrieve data from sessionStorage
-  const inputFileContent = localStorage.getItem('inputFile');
-  const outputFileContent = localStorage.getItem('outputFile');
+  const inputFileContent = sessionStorage.getItem('inputFile');
+  const outputFileContent = sessionStorage.getItem('outputFile');
 
   useEffect(() => {
     console.log(inputFileContent);

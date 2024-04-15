@@ -80,7 +80,7 @@ function AnalysisPage() {
 
 
   useEffect(() => {
-    localStorage.setItem('outputFile', responseText);
+    sessionStorage.setItem('outputFile', responseText);
     convertTextToFile();
   }, [responseText]);
 

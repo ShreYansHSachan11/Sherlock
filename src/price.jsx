@@ -65,7 +65,7 @@ function Homepage() {
   
   
   useEffect(() => {
-    localStorage.setItem('inputFile', text);
+    sessionStorage.setItem('inputFile', text);
     convertTextToFile();
   }, [text]);
 
@@ -283,7 +283,7 @@ function Homepage() {
         );
 
         const imageText = response.data;
-        localStorage.setItem('inputFile', imageText);
+        sessionStorage.setItem('inputFile', imageText);
         postingtexttoML(imageText);
       } catch (error) {
         console.error("Error:", error);

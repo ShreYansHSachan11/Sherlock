@@ -10,8 +10,8 @@ const fileTypes = ["JPG"];
 
 function Homepage() {
   const navigate = useNavigate();
-  const inputFileContent = localStorage.getItem('inputFile');
-  const outputFileContent = localStorage.getItem('outputFile');
+  const inputFileContent = sessionStorage.getItem('inputFile');
+  const outputFileContent = sessionStorage.getItem('outputFile');
 
   useEffect(() => {
     console.log(inputFileContent);
