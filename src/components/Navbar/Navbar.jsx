@@ -19,20 +19,17 @@ const Navbar = () => {
     if (token) {
       setIsLoggedIn(true);
       setUserName(username);
-    } else if (thankyou) {
-      navigate('/login');
-    } else {
+     } else {
       setIsLoggedIn(false);
       setUserName('');
+      
     }
   }, [navigate]);
 
   const handleSignIn = () => {
-    if (isLoggedIn) {
-      navigate('/dashboard');
-    } else {
+    
       navigate('/register');
-    }
+    
   };
 
   return (
@@ -122,7 +119,7 @@ const Navbar = () => {
           ) : (
             <button className="signin" onClick={handleSignIn}>
               {/* <img src={user} alt="" srcSet="" /> */}
-              Sign In
+              Sign Up
             </button>
           )}
         </div>

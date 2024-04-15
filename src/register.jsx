@@ -157,12 +157,7 @@ const Form = (props) => {
       })
       .catch((err) => {
         showToast("Registration Failed");
-        console.log(fname);
-        console.log(lname);
-        console.log(email);
-        console.log(password);
-        console.log(cpassword);
-        console.log(usertype);
+        
         setLoading(false);
       });
   }
@@ -356,9 +351,6 @@ const Form = (props) => {
                     </Grid>
                   </Box>
 
-                  
-                   
-                  
                 </Container>
               </div>
             </section>

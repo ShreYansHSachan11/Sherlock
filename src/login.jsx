@@ -16,14 +16,9 @@ const LoginPage = () => {
     const token = sessionStorage.getItem("token");
     const thankyou = localStorage.getItem("thankyou");
 
-    if (!token && !thankyou) {
-      // If the user is not logged in and 'thankyou' key is not present,
-      // navigate directly to the register page
-      navigate("/register", { replace: true });
-    } else if (token) {
-      // If the user is already logged in, set isLoggedIn to true
+    if (token) {
       setIsLoggedIn(true);
-    }
+    } 
   }, [navigate]);
 
 
