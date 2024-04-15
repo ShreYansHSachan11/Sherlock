@@ -13,28 +13,25 @@ const Navbar = () => {
     
   useEffect(() => {
     const token = sessionStorage.getItem('token');
-    const username = sessionStorage.getItem('username'); 
+    const username = sessionStorage.getItem('username');
+    const thankyou = sessionStorage.getItem('thankyou');
+
     if (token) {
-   
       setIsLoggedIn(true);
-      setUserName(username); 
+      setUserName(username);
+    } else if (thankyou) {
+      navigate('/login');
     } else {
       setIsLoggedIn(false);
       setUserName('');
     }
-  }, []);
-  
+  }, [navigate]);
+
   const handleSignIn = () => {
-    const isRegistered = sessionStorage.getItem('thankyou');
-    const token = sessionStorage.getItem('token');
-    if (!isRegistered) {
+    if (isLoggedIn) {
+      navigate('/dashboard');
+    } else {
       navigate('/register');
-    } else if(!token) {
-      navigate('/login');
-    }
-    else{
-      setIsLoggedIn(true);
-     
     }
   };
 
