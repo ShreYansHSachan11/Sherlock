@@ -25,12 +25,16 @@ const Navbar = () => {
   }, []);
   
   const handleSignIn = () => {
-    if (isLoggedIn) {
-  
-      alert('You are already logged in!');
-    } else {
-   
+    const isRegistered = sessionStorage.getItem('thankyou');
+    const token = sessionStorage.getItem('token');
+    if (!isRegistered) {
       navigate('/register');
+    } else if(!token) {
+      navigate('/login');
+    }
+    else{
+      setIsLoggedIn(true);
+     
     }
   };
 

@@ -16,13 +16,8 @@ import Register from '../../register'
 import Login from '../../login'
 import FileData from '../../fileData'
 import Deanonymize from '../../deanonymze'
+import RequireLogin from './requireLogin';
 
-const ProtectedRoute = ({ element, ...props }) => {
-  // Check if user is logged in
-  const isLoggedIn = sessionStorage.getItem("token") !== null;
-  // If user is logged in, render the specified element, otherwise redirect to login page
-  return isLoggedIn ? <Route {...props} element={element} /> : <Navigate to="/login" />;
-};
 
 const Home = () => {
   return (
@@ -30,17 +25,18 @@ const Home = () => {
       <div className="homepage">
         <Navbar />
         <Routes>
-          {/* Protected routes require authentication */}
-          <Route path="/" element={<ProtectedRoute element={<Login />} />} />
-          <Route path="/analyze" element={<ProtectedRoute element={<About />} />} />
-          <Route path="/anonymize" element={<ProtectedRoute element={<Price />} />} />
-          <Route path="/guidelines" element={<ProtectedRoute element={<Services />} />} />
-          <Route path="/analysis" element={<ProtectedRoute element={<Analysis />} />} />
-          <Route path="/result" element={<ProtectedRoute element={<ResultPage />} />} />
-          <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
-          <Route path="/fileData" element={<ProtectedRoute element={<FileData />} />} />
-          <Route path="/deanonymize" element={<ProtectedRoute element={<Deanonymize/>}/>} />
-          {/* Unprotected routes */}
+        
+          <Route path="/" element={ <Login/>}/>
+          <Route path="/analyze" element={<RequireLogin> <About/> </RequireLogin>} />
+          <Route path="/anonymize" element={<RequireLogin> <Price/> </RequireLogin>} />
+          <Route path="/guidelines" element={<RequireLogin> <Services/> </RequireLogin>} />
+          
+          <Route path="/analysis" element={<RequireLogin> <Analysis/> </RequireLogin>} />
+          <Route path="/result" element={<RequireLogin> <ResultPage/> </RequireLogin>} />
+          <Route path="/dashboard" element={<RequireLogin> <Dashboard/> </RequireLogin>} />
+          <Route path="/fileData" element={<RequireLogin> <FileData/> </RequireLogin>} />
+          <Route path="/deanonymize" element={<RequireLogin> <Deanonymize/> </RequireLogin>} />
+         
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           
