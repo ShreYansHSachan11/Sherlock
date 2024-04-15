@@ -14,7 +14,7 @@ const Navbar = () => {
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     const username = sessionStorage.getItem('username');
-    const thankyou = sessionStorage.getItem('thankyou');
+    const thankyou = localStorage.getItem('thankyou');
 
     if (token) {
       setIsLoggedIn(true);

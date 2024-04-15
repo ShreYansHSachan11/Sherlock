@@ -108,10 +108,12 @@ const Form = (props) => {
         showToast("Please Enter a Valid Password");
       } else {
         // Show success toast before submitting the form
-        toast.success("Form submitted successfully!");
+       
         setLoading(true);
         showResult();
         e.preventDefault();
+        toast.success("Form submitted successfully!");
+        
       }
     },
     [
@@ -148,9 +150,8 @@ const Form = (props) => {
     })
       .then((result) => {
         setLoading(false);
-        
         setRegistered(true);
-        sessionStorage.setItem("thankyou", true);
+        localStorage.setItem("thankyou", true);
         toast.success(`Registration Successful`);
         navigate("/login");
       })
@@ -166,7 +167,7 @@ const Form = (props) => {
       });
   }
   useEffect(() => {
-    let thankyou = sessionStorage.getItem("thankyou");
+    let thankyou = localStorage.getItem("thankyou");
     if (thankyou) {
       setRegistered(true);
     }

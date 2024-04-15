@@ -14,7 +14,7 @@ const LoginPage = () => {
   useEffect(() => {
     // Check if the user is logged in when the component mounts
     const token = sessionStorage.getItem("token");
-    const thankyou = sessionStorage.getItem("thankyou");
+    const thankyou = localStorage.getItem("thankyou");
 
     if (!token && !thankyou) {
       // If the user is not logged in and 'thankyou' key is not present,
