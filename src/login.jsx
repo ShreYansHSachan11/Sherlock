@@ -14,10 +14,17 @@ const LoginPage = () => {
   useEffect(() => {
     // Check if the user is logged in when the component mounts
     const token = sessionStorage.getItem("token");
-    if (token) {
+    const thankyou = sessionStorage.getItem("thankyou");
+
+    if (!token && !thankyou) {
+      // If the user is not logged in and 'thankyou' key is not present,
+      // navigate directly to the register page
+      navigate("/register", { replace: true });
+    } else if (token) {
+      // If the user is already logged in, set isLoggedIn to true
       setIsLoggedIn(true);
     }
-  }, []);
+  }, [navigate]);
 
 
   const handleLogin = () => {
