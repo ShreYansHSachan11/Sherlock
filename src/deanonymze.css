@@ -84,9 +84,9 @@
     align-items: center;
 }
 
-  .btn1 {
+  .de-container .btn1 {
     display: block;
-    margin:20px 20px;
+    margin:50px 20px;
     width: 230px;
     height: 45px;
     padding: 10px 20px;

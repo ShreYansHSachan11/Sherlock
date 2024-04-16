@@ -328,11 +328,11 @@ const Form = (props) => {
                             fullWidth
                             sx={{ color: color, width: "100%" }}
                           >
-                            <MenuItem value="police" disabled>
+                            <MenuItem disabled>
                               User Type
                             </MenuItem>
                             <MenuItem value="police">Police</MenuItem>
-                            <MenuItem value="non-police">Non-Police</MenuItem>
+                            <MenuItem disabled value="non-police">Non-Police</MenuItem>
                           </Select>
                         </FormControl>
                       </Grid>

@@ -42,9 +42,9 @@ const LoginPage = () => {
         sessionStorage.setItem("token", token);
         sessionStorage.setItem("username", username);
         sessionStorage.setItem('inputFile', input);
-        console.log(input);
+        sessionStorage.setItem('id', id);
         sessionStorage.setItem('outputFile', output);
-        console.log(output);
+        // console.log(output);
         setIsLoggedIn(true); 
           navigate("/anonymize");
         } else {

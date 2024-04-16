@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import './analysisPage.css';
 
 
@@ -27,7 +29,7 @@ const AdvancedAnalytics = ({ analyticsData }) => {
 
 function highlightEntities(text, entities, visibleEntities) {
   if (!Array.isArray(entities)) {
-    console.error("Entities is not an array.");
+    // console.error("Entities is not an array.");
     return text;
   }
 
@@ -68,19 +70,35 @@ function AnalysisPage() {
   const [filepair, setFilepair] = useState('');
   
 
-  
+  const showToast = (message) => {
+    toast.error(message, {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
 
   const convertTextToFile = () => {
    
     const file = new File([responseText], `anonymizedFile.txt`, { type: "text/plain" });
-    console.log("File object:", file);
+    // console.log("File object:", file);
     setFileObject(file);
     
   };
 
 
+  
+
   useEffect(() => {
-    sessionStorage.setItem('outputFile', responseText);
+    if(responseText)
+    {
+      sessionStorage.setItem('outputFile', responseText);
+    }
     convertTextToFile();
   }, [responseText]);
 
@@ -91,12 +109,51 @@ function AnalysisPage() {
     // console.log(selectedOption);
   };
 
+  function handlePrint() {
+    const printWindow = window.open('', '_blank');
+    const encodedText = encodeHtml(responseText); // Encode the placeholders
+    const htmlContent = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Print Document</title>
+        <style>
+          body {
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+            white-space: pre-wrap; /* Preserve line breaks and spaces */
+            font-family:  Montserrat; /* Choose your preferred font */
+            font-size: 12px; /* Adjust font size if necessary */
+            margin:50px;
+            text-align:justify;
+          }
+        </style>
+      </head>
+      <body>
+        ${encodedText}
+      </body>
+      </html>
+    `;
+    printWindow.document.write(htmlContent);
+    printWindow.document.close();
+    printWindow.print();
+  }
+  
+  function encodeHtml(html) {
+    return html.replace(/</g, '&lt;').replace(/>/g, '&gt;'); // Replace '<' with '&lt;' and '>' with '&gt;'
+  }
+
+  function onSave(){
+    toast.success(`File Saved Successfully!`);
+  }
+
   const handleSubmit = async () => {
     if (!selectedOption) {
       alert('Please choose an anonymization type.');
       return; 
     }
-    
+
     try {
       const data = {
         text: state.originalData.text,
@@ -106,12 +163,12 @@ function AnalysisPage() {
       const response = await axios.post(`${import.meta.env.VITE_REACT_APP_ML_API_KEY}/anonymize`, data);  
       setResponseText(response.data.anonymized_text.text);
       setAnalyticsData(response.data);
-      console.log(response.data.entity_mapping);
+      // console.log(response.data.entity_mapping);
       const stringifiedEntityMapping = JSON.stringify(response.data.entity_mapping);
       setEntityMapping(stringifiedEntityMapping); 
       
     } catch (error) {
-      console.error('Error:', error);
+      // console.error('Error:', error);
      
     }
   };
@@ -124,10 +181,10 @@ function AnalysisPage() {
       formData.append("entity", entityMapping);
       formData.append("status", "anonymized");
       formData.append('resultdata', fileObject);
-      const id = localStorage.getItem('id');
+      const filepairid = sessionStorage.getItem('filepairid');
       
       const response = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_BACKEND_API_KEY}/update/filepair/${id}`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_API_KEY}/update/filepair/${filepairid}`,
         formData,
         {
           headers: {
@@ -140,8 +197,8 @@ function AnalysisPage() {
   
     
     } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred. Please try again later.");
+      // console.error("Error:", error);
+      // alert("An error occurred. Please try again later.");
     }
   };
   
@@ -159,7 +216,7 @@ function AnalysisPage() {
   }, [state, visibleEntities]);
 
   const handleToggleEntity = (entity) => {
-    console.log("Toggling entity:", entity);
+    // console.log("Toggling entity:", entity);
     setVisibleEntities(prevVisibleEntities =>
       prevVisibleEntities.includes(entity)
         ? prevVisibleEntities.filter(item => item !== entity)
@@ -189,24 +246,38 @@ function AnalysisPage() {
       setVisibleEntities(uniqueEntities);
     }
   }, []);
-  console.log("Visible entities:", visibleEntities);
+  // console.log("Visible entities:", visibleEntities);
 
   return (
-    <div className="analysisPage">
+
     
+    <div className="analysisPage">
+    <ToastContainer
+        position="top-right"
+        autoClose={4000}
+        limit={5}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       {responseText ? (
         
         <div className='finalResult'>
-          <div className="finaltext">
+          <div  className="finaltext">
           {responseText}
           </div>
           
           <div className="finalResult-buttons">
-          <button className="btn1" >
+          <button onClick={onSave} className="btn1" >
           Save
         </button>
 
-        <button className="btn1" >
+        <button onClick={handlePrint} className="btn1" >
           Print
         </button>
           </div>

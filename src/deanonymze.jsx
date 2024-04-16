@@ -14,11 +14,11 @@ function Homepage() {
   const outputFileContent = sessionStorage.getItem('outputFile');
 
   useEffect(() => {
-    console.log(inputFileContent);
+    // console.log(inputFileContent);
   }, [inputFileContent]);
 
   useEffect(() => {
-    console.log(outputFileContent);
+    // console.log(outputFileContent);
   }, [outputFileContent]);
 
   const [loading, setLoading] = useState(true);

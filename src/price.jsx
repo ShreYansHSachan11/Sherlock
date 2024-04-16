@@ -26,6 +26,10 @@ function Homepage() {
     'Processing request'
   ];
 
+
+  if(text){sessionStorage.setItem('inputFile', text);}
+  
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       setLoadingText(prevText => {
@@ -60,12 +64,12 @@ function Homepage() {
 
   const generateRandomId = () => {
     const randomId = Math.floor(Math.random() * 9000000000) + 1000000000; // Generate a random 10-digit number
-    localStorage.setItem('id', randomId.toString()); // Convert the number to a string and store it in localStorage
+    sessionStorage.setItem('filepairid', randomId.toString()); // Convert the number to a string and store it in localStorage
   };
   
   
   useEffect(() => {
-    sessionStorage.setItem('inputFile', text);
+    
     convertTextToFile();
   }, [text]);
 
@@ -116,7 +120,7 @@ function Homepage() {
   function handlingText() {
     const handleTextSubmit = async () => {
       const id = sessionStorage.getItem("id");
-      const filepairid = localStorage.getItem('id');
+      const filepairid = sessionStorage.getItem('filepairid');
       try {
         const formData = new FormData();
         // formData.append("entity", "hello");
@@ -133,10 +137,10 @@ function Homepage() {
       }
     });
         setLoading(false);
-        console.log("storing in local",response.data.filePairId);
+        // console.log("storing in local",response.data.filePairId);
         localStorage.setItem('filepairid', response.data.filePairId);
         setFilepairid(response.data.filePairId);
-        console.log(response);
+        // console.log(response);
         navigate("/analysis", {
           state: {
             originalData: { text, image },
@@ -147,7 +151,7 @@ function Homepage() {
   
       } catch (error) {
         setLoading(false);
-        console.error("Error:", error);
+        // console.error("Error:", error);
         alert("An error occurred. Please try again later.");
       }
     };
@@ -178,7 +182,7 @@ function Homepage() {
         }, 5000);
       } catch (error) {
         setLoading(false);
-        console.error("Error:", error);
+        // console.error("Error:", error);
         alert("An error occurred. Please try again later.");
       }
     };
@@ -227,15 +231,9 @@ function Homepage() {
         );
         localStorage.setItem('filepairid', response.data.filePairId);
           
-        navigate("/analysis", {
-          state: {
-            originalData: { text, image },
-            anonymizedData: response.data,
-            filepairid: response.data.filePairId,
-          },
-        });
+        
       } catch (error) {
-        console.error("Error:", error);
+        // console.error("Error:", error);
         // alert("An error occurred. Please try again later.");
       }
     };
@@ -261,7 +259,7 @@ function Homepage() {
         }, 1000);
       } catch (error) {
         setLoading(false);
-        console.error("Error:", error);
+        // console.error("Error:", error);
         alert("An error occurred. Please try again later.");
       }
     };
@@ -270,7 +268,7 @@ function Homepage() {
       try {
         const formData = new FormData();
         formData.append("file", image);
-        console.log(image);
+        // console.log(image);
         const response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_ML_API_KEY}/i2t`,
           formData,
@@ -286,7 +284,7 @@ function Homepage() {
         sessionStorage.setItem('inputFile', imageText);
         postingtexttoML(imageText);
       } catch (error) {
-        console.error("Error:", error);
+        // console.error("Error:", error);
         alert("An error occurred. Please try again later.");
       }
     };
