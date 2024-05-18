@@ -3,6 +3,9 @@ import './homepage.css'
 import Features from '../src/components/features/features'
 import anonymize from '../src/assets/demo2.svg';
 import cardimg from '../src/assets/hero.jpeg'
+import hero1 from '../src/assets/home3.svg'
+import hero2 from '../src/assets/home4.svg'
+import hero3 from '../src/assets/home5.svg'
 
 const WelcomeSection = () => {
   
@@ -53,7 +56,7 @@ const WelcomeSection = () => {
 
   <article class="features-group">
     <div class="features-image">
-      <img src="./src/assets/home3.svg" alt="Illustration of a man touching a large check icon"/>
+      <img src={hero1} alt="Illustration of a man touching a large check icon"/>
        
     </div>
     <div class="features-text">
@@ -65,7 +68,7 @@ const WelcomeSection = () => {
   
   <article class="features-group">
     <div class="features-image inverse">
-      <img src="./src/assets/home4.svg" alt="Illustration of a woman standing next to a screen with portfolio items"/>
+      <img src={hero2} alt="Illustration of a woman standing next to a screen with portfolio items"/>
     </div>
     <div class="features-text">
       <h2>Image Recognition and Selective Blurring</h2>
@@ -76,7 +79,7 @@ const WelcomeSection = () => {
   
   <article class="features-group">
     <div class="features-image">
-      <img src="./src/assets/home5.svg" alt="Illustration of a man in a suit pointing to a bar chart that is going up"/>
+      <img src={hero3} alt="Illustration of a man in a suit pointing to a bar chart that is going up"/>
     </div>
     <div class="features-text">
       <h2>Face Blurring in  Videos</h2>
