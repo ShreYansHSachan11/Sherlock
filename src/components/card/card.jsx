@@ -9,7 +9,8 @@ const Card = ({ fileData }) => {
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
   const [email, setEmail] = useState('');
-  const [userId, setUserId] = useState('');
+  
+  const [currentFilePairId, setCurrentFilePairId] = useState('');
 
   const handleNavigate = (event, inputFile, outputFile) => {
     event.preventDefault();
@@ -18,7 +19,10 @@ const Card = ({ fileData }) => {
     });
   };
 
-  const handleShareClick = () => {
+
+
+  const handleShareClick = (filePairId) => {
+    setCurrentFilePairId(filePairId);
     setModalOpen(true);
   };
 
@@ -31,10 +35,11 @@ const Card = ({ fileData }) => {
     // Perform API call to share file
     // Example: Replace the API_URL with your actual API endpoint
     try {
+      const useremail=sessionStorage.getItem("email");
       const formData = new FormData();
-      formData.append("sharedFrom", "662e1ef729d9d5b79f4f902e");
-      formData.append("sharedTo", "66475e2110ab777145b8da82");
-      formData.append("filePairId", "123123");
+      formData.append("sharedFromEmail", useremail);
+      formData.append("sharedToEmail", email);
+      formData.append("filePairId", currentFilePairId);
       const response =  await axios.post("https://sherlock-backend-4.onrender.com/share-file-pair",
       formData,
        {
@@ -56,7 +61,7 @@ const Card = ({ fileData }) => {
     }
   };
 
-  return (
+  return (    
     <div>
       {fileData.map((file, index) => (
         <div key={index} className="card">
@@ -71,7 +76,7 @@ const Card = ({ fileData }) => {
               {file.filePairId}
             </a>
             
-            <img src={share} className='shareicon' alt="" onClick={handleShareClick} />
+            <img src={share} className='shareicon' alt="" onClick={() => handleShareClick(file.filePairId)} />
           </p>
           <p>{file.shared}</p>
           <p>{file.status}</p>
@@ -86,7 +91,7 @@ const Card = ({ fileData }) => {
             <h2>Share File</h2>
             <form  className='form-container' onSubmit={handleSubmit}>
               <label>Reciever Email:</label>
-              <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} required />
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
              
               <button type="submit">Share</button>
             </form>

@@ -27,7 +27,8 @@ const dashboard = () => {
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get('https://sherlock-backend-4.onrender.com/662e1ef729d9d5b79f4f902e');
+            const id= sessionStorage.getItem("id");
+            const response = await axios.get(`https://sherlock-backend-4.onrender.com/${id}`);
             setFilePairs(response.data.user.filePairs);
             setReceivedFilePairs(response.data.user.sharedFilePairs); // Assuming sharedFilePairs are received files
           } catch (error) {
@@ -69,7 +70,7 @@ const dashboard = () => {
                    <p>Name</p>
                 <p>Shared</p>
                 <p>Status</p>
-                <p>View</p> 
+                <p>Date</p> 
                 </div>
                 <div className="boxData">
                <Card fileData={filePairs} />
@@ -87,10 +88,10 @@ const dashboard = () => {
                 <p>Name</p>
                 <p>Recieved From</p>
                 <p>Status</p>
-                <p>View</p> 
+                <p>Date</p> 
                 </div>
                 <div className="boxData">
-                <Card1 fileData={recievedfileData} />
+                <Card1 fileData={receivedFilePairs} />
                 </div>
             </div>
 

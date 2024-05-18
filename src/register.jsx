@@ -35,6 +35,7 @@ const Form = (props) => {
   const emailpattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordpattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@.])[A-Za-z\d@.]{8,}$/;
   const navigate = useNavigate();
+  const token = sessionStorage.getItem("token");
 
   const showToast = (message) => {
     toast.error(message, {
@@ -189,11 +190,12 @@ const Form = (props) => {
         pauseOnHover
         theme="dark"
       />
-      {registered ? (
+      
+        <div className="registerPage">
+        {token ? (
         <div style={{color:"white"}}>You are already Registered !</div>
       ) : (
         <>
-        <div className="registerPage">
           <CssBaseline />
           
                 <Container fixed style={{border:"1px solid grey", display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column", marginTop:"50px", backdropFilter:"blur(20px) brightness(2)", borderRadius:"5px",width:"700px" }}>
@@ -396,8 +398,7 @@ const Form = (props) => {
                                
                                 color: "grey",
   
-                                [`&.${inputLabelClasses.shrink}`]: {
-                                  
+                                [`&.${inputLabelClasses.shrink}`]: { 
                                   color: "grey",
                                   fontWeight:"bold"
                                 }
@@ -427,9 +428,10 @@ const Form = (props) => {
 
                 </Container>
              
-          </div>
+          
         </>
       )}
+      </div>
     </>
   );
 };

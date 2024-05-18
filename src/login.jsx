@@ -61,6 +61,7 @@ const LoginPage = () => {
         sessionStorage.setItem('inputFile', input);
         sessionStorage.setItem('id', id);
         sessionStorage.setItem('outputFile', output);
+        sessionStorage.setItem('email', email);
         setIsLoggedIn(true); 
         navigate("/anonymize");
       } else {

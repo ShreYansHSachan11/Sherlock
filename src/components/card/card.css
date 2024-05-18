@@ -97,7 +97,7 @@
     text-align: left;
   }
   
-  .form-container input[type="text"],
+  .form-container input[type="email"],
   .form-container button {
     width: 100%;
     padding: 10px;
