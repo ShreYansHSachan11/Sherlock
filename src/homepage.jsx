@@ -53,7 +53,7 @@ const WelcomeSection = () => {
 
   <article class="features-group">
     <div class="features-image">
-      <img src="src\assets\home3.svg" alt="Illustration of a man touching a large check icon"/>
+      <img src="./src/assets/home3.svg" alt="Illustration of a man touching a large check icon"/>
        
     </div>
     <div class="features-text">
@@ -65,7 +65,7 @@ const WelcomeSection = () => {
   
   <article class="features-group">
     <div class="features-image inverse">
-      <img src="src\assets\home4.svg" alt="Illustration of a woman standing next to a screen with portfolio items"/>
+      <img src="./src/assets/home4.svg" alt="Illustration of a woman standing next to a screen with portfolio items"/>
     </div>
     <div class="features-text">
       <h2>Image Recognition and Selective Blurring</h2>
@@ -76,7 +76,7 @@ const WelcomeSection = () => {
   
   <article class="features-group">
     <div class="features-image">
-      <img src="src\assets\home5.svg" alt="Illustration of a man in a suit pointing to a bar chart that is going up"/>
+      <img src="./src/assets/home5.svg" alt="Illustration of a man in a suit pointing to a bar chart that is going up"/>
     </div>
     <div class="features-text">
       <h2>Face Blurring in  Videos</h2>
