@@ -1,8 +1,11 @@
 import React from 'react'
+import './guidelines.css';
 
 const contact = () => {
   return (
-    <div>contact</div>
+    <div className="guidelinesPage">
+      
+    </div>
   )
 }
 

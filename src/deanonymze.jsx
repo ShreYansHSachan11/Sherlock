@@ -81,7 +81,7 @@ function Homepage() {
               {/* Loader animation */}
               <div id="loader" style={{ width: 140, height: 100 }} />
               {/* Display loading text */}
-              <p style={{ color: "black" }}>{dummyTexts[loadingTextIndex]}</p>
+              <p style={{ color: "white" }}>{dummyTexts[loadingTextIndex]}</p>
             </div>
           ) : (<>
             <div className="input-section">

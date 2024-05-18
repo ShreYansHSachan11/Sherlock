@@ -73,7 +73,7 @@ const FileData = () => {
           {loading ? (
             <div className="loaderContainer">
               <div id="loader" style={{ width: 140, height: 100 }} />
-              <p style={{ color: "black" }}>{dummyTexts[loadingTextIndex]}</p>
+              <p style={{ color: "white" }}>{dummyTexts[loadingTextIndex]}</p>
             </div>
           ) : (
             <>

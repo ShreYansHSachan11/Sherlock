@@ -3,10 +3,10 @@ import axios from "axios";
 import { Routes, Route,  Navigate } from 'react-router-dom';
 import './Home.css';
 import Navbar from '../Navbar/Navbar';
-import Contact from '../../contact';
+import Contact from '../../guidelines';
 import About from '../../about';
 import Price from '../../price';
-import Services from '../ResultPage';
+import Guidelines from '../../guidelines';
 import Upload from '../fileuploader/upload';
 // import Apitester from '../apitester';
 import ResultPage from '../ResultPage';
@@ -30,7 +30,7 @@ const Home = () => {
           <Route path="/" element={ <Homepage/>}/>
           <Route path="/analyze" element={<RequireLogin> <About/> </RequireLogin>} />
           <Route path="/anonymize" element={<RequireLogin> <Price/> </RequireLogin>} />
-          <Route path="/guidelines" element={<RequireLogin> <Services/> </RequireLogin>} />
+          <Route path="/guidelines" element={<RequireLogin> <Guidelines/> </RequireLogin>} />
           
           <Route path="/analysis" element={<RequireLogin> <Analysis/> </RequireLogin>} />
           <Route path="/result" element={<RequireLogin> <ResultPage/> </RequireLogin>} />
