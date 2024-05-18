@@ -174,37 +174,65 @@ function AnalysisPage() {
   };
 
   const updateFilePair = async () => {
-    if(!entityMapping || !fileObject ) return;
-     
+    if (!entityMapping || !fileObject) {
+      console.error("Entity mapping or file object is missing");
+      return;
+    }
+  
     try {
       const formData = new FormData();
       formData.append("entity", entityMapping);
       formData.append("status", "anonymized");
-      formData.append('resultdata', fileObject);
-      const filepairid = sessionStorage.getItem('filepairid');
-        
+      formData.append("resultdata", fileObject);
+      const filepairid = sessionStorage.getItem("filepairid");
+  
+      if (!filepairid) {
+        console.error("File pair ID is missing");
+        return;
+      }
+  
       const response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BACKEND_API_KEY}/update/filepair/${filepairid}`,
         formData,
         {
           headers: {
-          
-              
-          },
-          
+            'Content-Type': 'multipart/form-data'
+          }
         }
       );
   
-    
+      if (response.status >= 200 && response.status < 300) {
+        console.log("File pair updated successfully");
+      } else {
+        console.error(`Failed to update file pair. Status code: ${response.status}`);
+      }
+  
     } catch (error) {
-      // console.error("Error:", error);
-      // alert("An error occurred. Please try again later.");
+      handleApiError(error);
     }
   };
   
+  const handleApiError = (error) => {
+    if (error.response) {
+      console.error("Response data:", error.response.data);
+      console.error("Response status:", error.response.status);
+      console.error("Response headers:", error.response.headers);
+    } else if (error.request) {
+      console.error("Request data:", error.request);
+    } else {
+      console.error("Error message:", error.message);
+    }
+    console.error("Error config:", error.config);
+  };
+  
+  
+  
   useEffect(() => {
-    updateFilePair();
-  }, [entityMapping]);
+    if (entityMapping && fileObject) {
+      updateFilePair();
+    }
+  }, [entityMapping, fileObject]); // Ensure dependencies are correct
+  
 
 
 

@@ -29,6 +29,13 @@
     /* justify-content: center; */
     align-items: center;
 }
+.shareicon{
+    filter: hue-rotate(45deg);
+}
+
+.shareicon:hover{
+    filter: hue-rotate(300deg);
+}
 
 .modal {
     position: fixed;

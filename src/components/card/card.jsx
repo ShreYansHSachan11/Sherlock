@@ -70,7 +70,8 @@ const Card = ({ fileData }) => {
             >
               {file.filePairId}
             </a>
-            <img src={share} alt="" onClick={handleShareClick} />
+            
+            <img src={share} className='shareicon' alt="" onClick={handleShareClick} />
           </p>
           <p>{file.shared}</p>
           <p>{file.status}</p>

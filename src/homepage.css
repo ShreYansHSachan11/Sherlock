@@ -127,15 +127,17 @@ a {
 
 
 .domain{
- background: url("./assets/featuresbg1.jpg");
+ background: url("./assets/featurebg.jpg");
  /* filter: hue-rotate(45deg); */
  background-repeat: no-repeat;
  background-position: right;
  /* background-color: rgb(82, 6, 145); */
  background-size: cover;
   width: 100vw;
-  /* mix-blend-mode:darken ; */
+  background-blend-mode: darken;
 }
+
+
 
 .domain h3{
   text-align: left;
