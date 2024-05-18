@@ -127,7 +127,7 @@ a {
 
 
 .domain{
- background: url("src/assets/featuresbg1.jpg");
+ background: url("./assets/featuresbg1.jpg");
  /* filter: hue-rotate(45deg); */
  background-repeat: no-repeat;
  background-position: right;
