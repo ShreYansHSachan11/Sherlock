@@ -10,6 +10,28 @@ const Navbar = () => {
   const navigate= useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState('');
+  const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        // Add scroll event listener when component mounts
+        window.addEventListener("scroll", handleScroll);
+        // Remove scroll event listener when component unmounts
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+    // Function to handle scroll event
+    const handleScroll = () => {
+        // Check if user has scrolled down
+        if (window.scrollY > 0) {
+            setIsScrolled(true);
+        } else {
+            setIsScrolled(false);
+        }
+    };
+
+
     
   useEffect(() => {
     const token = sessionStorage.getItem('token');
@@ -34,10 +56,10 @@ const Navbar = () => {
 
   return (
   <>                     
-                <div className='navbar'>
+                <div className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
                     <div className="navbar-left">
                        
-                        <h2 style={{color:"grey"}}>HIDE</h2>
+                        <h2 style={{color:"white"}}>HIDE</h2>
                     </div>
                     <div className="navbar-center">
 
@@ -47,7 +69,7 @@ const Navbar = () => {
                             style={({ isActive }) => ({
                                 color: isActive
                                     ? "grey"
-                                    : "black",
+                                    : "white",
                             })}
                         >
                             Home
@@ -61,7 +83,7 @@ const Navbar = () => {
                             style={({ isActive }) => ({
                                 color: isActive
                                     ? "grey"
-                                    : "black",
+                                    : "white",
                             })}
                         >
                             Anonymize
@@ -73,7 +95,7 @@ const Navbar = () => {
                             style={({ isActive }) => ({
                                 color: isActive
                                     ? "grey"
-                                    : "black",
+                                    : "white",
                             })}
                         >
                             De-Anonymize
@@ -86,7 +108,7 @@ const Navbar = () => {
                             style={({ isActive }) => ({
                                 color: isActive
                                     ? "grey"
-                                    : "black",
+                                    : "white",
                             })}
                         >
                             Dashboard
@@ -99,7 +121,7 @@ const Navbar = () => {
                             style={({ isActive }) => ({
                                 color: isActive
                                     ? "grey"
-                                    : "black",
+                                    : "white",
                             })}
                         >
                             Guidelines
@@ -110,7 +132,7 @@ const Navbar = () => {
                     </div>
                     <div className="navbar-right">
           {/* <img src={search} alt="" srcSet="" /> */}
-          <input className="input-field" type="text" placeholder='Search For Anything' />
+          {/* <input className="input-field" type="text" placeholder='Search For Anything' /> */}
           {isLoggedIn ? (
             <button className="signin" disabled>
               {/* <img src={user} alt="" srcSet="" /> */}

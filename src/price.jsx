@@ -50,7 +50,7 @@ function Homepage() {
     setText(e.target.value);
     setProceedActive(e.target.value !== "" || image !== null);
 
-    generateRandomId();
+  
 
   };
 
@@ -62,10 +62,7 @@ function Homepage() {
     
   };
 
-  const generateRandomId = () => {
-    const randomId = Math.floor(Math.random() * 9000000000) + 1000000000; // Generate a random 10-digit number
-    sessionStorage.setItem('filepairid', randomId.toString()); // Convert the number to a string and store it in localStorage
-  };
+
   
   
   useEffect(() => {
@@ -78,7 +75,6 @@ function Homepage() {
   const handleChange = (file) => {
     setImage(file);
     setProceedActive(file !== "" || text !== "");
-    generateRandomId();
   };
 
   React.useEffect(() => {
@@ -119,21 +115,25 @@ function Homepage() {
 
   function handlingText() {
     const handleTextSubmit = async () => {
-      const id = sessionStorage.getItem("id");
-      const filepairid = sessionStorage.getItem('filepairid');
+      // const id = sessionStorage.getItem("id");
+      const randomId = Math.floor(Math.random() * 9000000000) + 1000000000; // Generate a random 10-digit number
+      sessionStorage.setItem('filepairid', randomId.toString());
+      const token = sessionStorage.getItem("token");
+      const filepairid = randomId;
       try {
         const formData = new FormData();
         // formData.append("entity", "hello");
         formData.append("status", "Uploaded");
         formData.append('filePairId', filepairid); 
-        formData.append("userId", id);
+        // formData.append("userId", id);
         formData.append("file", fileObject);
         // formData.append("file", fileObject);
         const response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BACKEND_API_KEY}/filedata`,
           formData,{
       headers: {
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${token}`
       }
     });
         setLoading(false);
@@ -210,22 +210,29 @@ function Homepage() {
 
   function handlingImage() {
     const handleImageSubmit = async () => {
-      const id = sessionStorage.getItem("id");
-      const filepairid = localStorage.getItem('id');
+      const randomId = Math.floor(Math.random() * 9000000000) + 1000000000; // Generate a random 10-digit number
+      sessionStorage.setItem('filepairid', randomId.toString());
+      const token = sessionStorage.getItem("token");
+      const filepairid = randomId;
       try {
         const formData = new FormData();
         formData.append("file", image);
-        formData.append("userId", id);
+        // formData.append("userId", id);
         formData.append('filePairId', filepairid); 
         formData.append("status", "Uploaded");
+        formData.append("entity", "hello");
+        // formData.append("status", "anonymized");
+        formData.append('resultdata', image);
         // formData.append("textdata", "");
         const response = await axios.post(
           `${import.meta.env.VITE_REACT_APP_BACKEND_API_KEY}/filedata`,
           formData,
           {
             headers: {
-              "Content-Type": "multipart/form-data",
-              accept: "application/json",
+              // "Content-Type": "multipart/form-data",
+              // accept: "application/json",
+              'Authorization': `Bearer ${token}`
+
             },
           }
         );
@@ -294,7 +301,7 @@ function Homepage() {
 
   return (
     <div className="homepage-container">
-      <div className="homepage-container-content">
+      <div className="homepage-container-contents">
         <h3>ANONYMIZER</h3>
         <div className="input-sections">
           <div className="input-section">
@@ -321,11 +328,11 @@ function Homepage() {
         {loading ? (
           <><div className="loaderContainer">
           <div id="loader" style={{ width: 140, height: 100 }} />
-          <p style={{color:"black"}}>{loadingText}</p></div></>
+          <p style={{color:"white"}}>{loadingText}</p></div></>
           
         ) : (
           <button
-            className="btn1"
+            className="proceed"
             onClick={handleProceed}
             disabled={!proceedActive}
           >

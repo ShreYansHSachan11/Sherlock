@@ -1,10 +1,29 @@
 .fileDataPage{
     text-align: center;
-    margin-top: 31px;
+    /* margin-top: 31px; */
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+   
+    width: 100vw;
+    height:100vh;
+  }
+
+  .fileDataPage::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-038.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    z-index: -1;
+    filter: brightness(0.7) blur(1px);
   }
   
 .fileDataContainer{
@@ -38,6 +57,10 @@
     font-family: "Montserrat", sans-serif;
   }
 
+.input-section img{
+  width: -webkit-fill-available;
+}
+
    .fileDataPage .input-section {
     margin: 20px 2;
     display: flex;
@@ -50,7 +73,7 @@
     overflow: scroll;
     scrollbar-width: none;
     word-wrap: break-word;
-    color: black;
+    color: rgb(255, 255, 255);
     text-align: justify;
     width: 400px;
     border: 1px solid black;
@@ -76,4 +99,6 @@
     cursor: pointer;
   }
 
-  
+  iframe::-webkit-scrollbar {
+    width: 2px;
+  }

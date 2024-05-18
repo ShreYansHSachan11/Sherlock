@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    background: #FFFFFF;
+    /* background: #FFFFFF; */
     padding: 5px 0px 5px 5px;
     font-size: 16px;
     width: 100vw;
@@ -15,7 +15,7 @@
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
-    border-bottom: 1px solid black;
+    /* border-bottom: 1px solid black; */
     z-index: 10;
   }
   
@@ -38,8 +38,14 @@
     margin-right:7px;
   }
 
+  .navbar.scrolled {
+    background-color: #1c0122ed; /* Change to desired color when scrolled */
+    color: white; /* Change to desired color when scrolled */
+}
+
   .navbar-center{
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-between;
   }
@@ -49,7 +55,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    width:38%;
+    /* width:38%; */
   }
 
   .navbar-left img{
@@ -86,7 +92,7 @@
   }
 
 .signin{
-    background-color: #00C9B8;
+    background-color: #5b2395;
     color:#FFFFFF;
 }
 
@@ -94,14 +100,14 @@
     background-color: #ce2540;
   }
 
-  .input-field{
+  .navbar .input-field{
     text-align: center;
     background-color: #E7F5F5;
     color: black;
     margin:0 20px;
     border: none;
     height:2.2rem;
-    width:300px;
+    width:80%;
     border-radius: 5px;
     background-image: url(../../assets/search.png);
     background-repeat: no-repeat;

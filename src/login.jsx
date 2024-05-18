@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Box, Grid, TextField, Button, Container } from "@mui/material";
 import { useNavigate } from "react-router-dom"; // Assuming you're using React Router for navigation
+import { inputLabelClasses } from "@mui/material/InputLabel";
 import axios from "axios";
+import './login.css'
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -58,22 +60,26 @@ const LoginPage = () => {
   };
 
   
-  return (
+  return (<>
+  <div className="loginPage">
+
+  
     <Container
       maxWidth="sm"
-      style={{ border: "1px solid black", display: "flex", justifyContent: "center", alignItems: "center" }}
+      style={{ border: "1px solid grey", display: "flex", justifyContent: "center", alignItems: "center", backdropFilter:"blur(10px) brightness(2)", borderRadius:"5px", color:"white" }}
     >
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          color:"white"
         }}
       >
-        <h2 style={{ color: "black" }}>Login</h2>
+        <h2 style={{ color: "white" }}>LOGIN</h2>
         {/* Check if the user is logged in */}
         {isLoggedIn ? (
-          <p style={{color:"black"}}>You are already logged in.</p>
+          <p style={{color:"white"}}>You are already logged in.</p>
         ) : (
           <Box
             component="form"
@@ -82,7 +88,7 @@ const LoginPage = () => {
               e.preventDefault();
               handleLogin();
             }}
-            sx={{ mt: 1 }}
+            sx={{ mt: 1}}
           >
             <Grid container spacing={2}>
               <Grid item xs={12}>
@@ -95,6 +101,18 @@ const LoginPage = () => {
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  sx={{color:"white", background:"white", border:"1px solid grey", borderRadius:"5px" }}
+                  InputLabelProps={{
+                    sx: {
+                      // set the color of the label when not shrinked
+                      color: "grey",
+                      [`&.${inputLabelClasses.shrink}`]: {
+                        // set the color of the label when shrinked (usually when the TextField is focused)
+                        color: "grey"
+                      }
+                    }
+                  }}
+                  
                 />
               </Grid>
               <Grid item xs={12}>
@@ -108,6 +126,17 @@ const LoginPage = () => {
                   autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  sx={{color:"white", background:"white", border:"1px solid grey", borderRadius:"5px" }}
+                  InputLabelProps={{
+                    sx: {
+                      // set the color of the label when not shrinked
+                      color: "grey",
+                      [`&.${inputLabelClasses.shrink}`]: {
+                        // set the color of the label when shrinked (usually when the TextField is focused)
+                        color: "grey"
+                      }
+                    }
+                  }}
                 />
               </Grid>
             </Grid>
@@ -115,7 +144,7 @@ const LoginPage = () => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 5, backgroundColor: "#00C9B8" }}
+              sx={{ mt: 3, mb: 5, backgroundColor: "#5b2395" }}
             >
               Sign In
             </Button>
@@ -123,6 +152,8 @@ const LoginPage = () => {
         )}
       </Box>
     </Container>
+    </div>
+    </>
   );
 };
 

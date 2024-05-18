@@ -182,16 +182,16 @@ function AnalysisPage() {
       formData.append("status", "anonymized");
       formData.append('resultdata', fileObject);
       const filepairid = sessionStorage.getItem('filepairid');
-      
+        
       const response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BACKEND_API_KEY}/update/filepair/${filepairid}`,
         formData,
         {
           headers: {
-            'Content-Type': 'multipart/form-data',
+          
               
           },
-          timeout: 10000
+          
         }
       );
   
@@ -206,6 +206,9 @@ function AnalysisPage() {
     updateFilePair();
   }, [entityMapping]);
 
+
+
+  
 
   useEffect(() => {
     if (state && state.anonymizedData) {

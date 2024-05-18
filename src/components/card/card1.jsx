@@ -20,7 +20,7 @@ const Card = ({ fileData }) => {
             <NavLink
               to="/deanonymize"
               style={({ isActive }) => ({
-                color: isActive ? "grey" : "black",
+                color: "white",
               })}
             >
               {file.filename}

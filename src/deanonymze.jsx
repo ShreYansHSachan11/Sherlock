@@ -63,6 +63,9 @@ function Homepage() {
   }, [loading]);
 
   return (
+    <div className="deanoPage">
+
+    
     <div className="de-container">
       <div className="de-container-content">
         <h3>DE-ANONYMIZER</h3>
@@ -106,6 +109,7 @@ function Homepage() {
          
         </div>
       </div>
+    </div>
     </div>
   );
 }

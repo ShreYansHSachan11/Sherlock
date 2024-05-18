@@ -10,8 +10,11 @@ import CssBaseline from "@mui/material/CssBaseline";
 import classes from "./form.module.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { OutlinedInput } from '@mui/material';
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom"; 
+import { inputLabelClasses } from "@mui/material/InputLabel";
+import './register.css'
 
 const Form = (props) => {
   const [fname, setFname] = useState("");
@@ -73,7 +76,7 @@ const Form = (props) => {
   useEffect(() => {
     const handleBeforeUnload = (e) => {
       e.preventDefault();
-      e.returnValue = "Are you sure you want to leave this page?"; // This is for older browsers
+      e.returnValue = "Are you sure you want to leave this page?"; 
     };
 
     window.addEventListener("beforeunload", handleBeforeUnload);
@@ -107,7 +110,7 @@ const Form = (props) => {
         setPassworderr(true);
         showToast("Please Enter a Valid Password");
       } else {
-        // Show success toast before submitting the form
+        
        
         setLoading(true);
         showResult();
@@ -187,16 +190,15 @@ const Form = (props) => {
         theme="dark"
       />
       {registered ? (
-        <div style={{color:"black"}}>You are already Registered !</div>
+        <div style={{color:"white"}}>You are already Registered !</div>
       ) : (
         <>
+        <div className="registerPage">
           <CssBaseline />
-          <div className={styles.forbg}>
-            <section className={styles.formSection}>
-              <div className={styles.page}>
-                <Container fixed style={{border:"1px solid black", display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column", marginTop:"50px"}}>
+          
+                <Container fixed style={{border:"1px solid grey", display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column", marginTop:"50px", backdropFilter:"blur(20px) brightness(2)", borderRadius:"5px",width:"700px" }}>
                   <div className={styles.head}>
-                    <h1 style={{marginTop:"40px"}}>Sign Up</h1>
+                    <h1 style={{marginTop:"40px", color:"white"}}>SIGN UP</h1>
                   </div>
                   <Box
                     component="form"
@@ -206,7 +208,7 @@ const Form = (props) => {
                     className={styles.input}
                   >
                     <Grid container spacing={2}>
-                      <Grid item xs={6} style={{padding:"5px 8px"}}>
+                      <Grid item xs={6} style={{padding:"8px 8px"}}>
                         <TextField
                           required
                           id="outlined-required"
@@ -224,10 +226,23 @@ const Form = (props) => {
                             const namePattern = /^[A-Za-z]{3,20}$/;
                             setFnameerr(!namePattern.test(e.target.value));
                           }}
-                          sx={{ color: color, width: "100%" }}
+                          sx={{ input: { color: 'white' } , width: "100%", borderRadius:"5px"}}
+                          InputLabelProps={{
+                            sx: {
+                             
+                              color: "grey",
+
+                              [`&.${inputLabelClasses.shrink}`]: {
+                               
+                                color: "white",
+                                fontWeight:"bold"
+                              }
+                            }
+                          }}
+                          
                         />
                       </Grid>
-                      <Grid item xs={6} style={{padding:"5px 8px"}}>
+                      <Grid item xs={6} style={{padding:"8px 8px"}}>
                         <TextField
                           required
                           id="outlined-required"
@@ -243,10 +258,22 @@ const Form = (props) => {
                             const namePattern = /^[A-Za-z]{3,20}$/;
                             setLnameerr(!namePattern.test(e.target.value));
                           }}
-                          sx={{ color: color, width: "100%" }}
+                          sx={{ input: { color: 'white' } , width: "100%", borderRadius:"5px"}}
+                          InputLabelProps={{
+                            sx: {
+                             
+                              color: "grey",
+
+                              [`&.${inputLabelClasses.shrink}`]: {
+                               
+                                color: "white",
+                                fontWeight:"bold"
+                              }
+                            }
+                          }}
                         />
                       </Grid>
-                      <Grid item xs={12} style={{padding:"5px 8px"}}>
+                      <Grid item xs={12} style={{padding:"8px 8px"}}>
                         <TextField
                           required
                           id="outlined-required"
@@ -262,11 +289,23 @@ const Form = (props) => {
                             const emailpattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                             setMailerr(!emailpattern.test(e.target.value));
                           }}
-                          sx={{ color: color, width: "100%" }}
+                          sx={{ input: { color: 'white' } , width: "100%", borderRadius:"5px"}}
+                          InputLabelProps={{
+                            sx: {
+                              
+                              color: "grey",
+
+                              [`&.${inputLabelClasses.shrink}`]: {
+                               
+                                color: "white",
+                                fontWeight:"bold"
+                              }
+                            }
+                          }}
                         />
                       </Grid>
 
-                      <Grid item xs={6} style={{padding:"5px 8px"}}>
+                      <Grid item xs={6} style={{padding:"8px 8px"}}>
                         <TextField
                           required
                           id="outlined-required"
@@ -287,11 +326,23 @@ const Form = (props) => {
                               !passwordpattern.test(e.target.value)
                             );
                           }}
-                          sx={{ color: color, width: "100%" }}
+                          sx={{ input: { color: 'white' } , width: "100%", borderRadius:"5px"}}
+                          InputLabelProps={{
+                            sx: {
+                            
+                              color: "grey",
+
+                              [`&.${inputLabelClasses.shrink}`]: {
+                               
+                                color: "white",
+                                fontWeight:"bold"
+                              }
+                            }
+                          }}
                         />
                       </Grid>
 
-                      <Grid item xs={6} style={{padding:"5px 8px"}}>
+                      <Grid item xs={6} style={{padding:"8px 8px"}}>
                         <TextField
                           required
                           id="outlined-required"
@@ -312,12 +363,24 @@ const Form = (props) => {
                               !passwordpattern.test(e.target.value)
                             );
                           }}
-                          sx={{ color: color, width: "100%" }}
+                          sx={{ input: { color: 'white' } , width: "100%", borderRadius:"5px"}}
+                          InputLabelProps={{
+                            sx: {
+                             
+                              color: "grey",
+
+                              [`&.${inputLabelClasses.shrink}`]: {
+                               
+                                color: "white",
+                                fontWeight:"bold"
+                              }
+                            }
+                          }}
                         />
                       </Grid>
-                      <Grid item xs={12} style={{padding:"5px 8px"}}>
-                        <FormControl sx={{ minWidth: 580 }}>
-                          <InputLabel id="user-type-label">
+                      <Grid item xs={12} style={{padding:"8px 8px"}}>
+                        <FormControl sx={{ minWidth: 580 ,input: { color: 'white' } , width: "100%", borderRadius:"5px"}}>
+                          <InputLabel id="user-type-label" sx={{color:"grey"}}>
                             User Type
                           </InputLabel>
                           <Select
@@ -326,24 +389,35 @@ const Form = (props) => {
                             onChange={(e) => setUsertype(e.target.value)}
                             variant="outlined"
                             fullWidth
-                            sx={{ color: color, width: "100%" }}
+                            sx={{ input: { color: 'white' } , width: "100%", borderRadius:"5px"}}
+                            
+                             InputLabelProps={{
+                              sx: {
+                               
+                                color: "grey",
+  
+                                [`&.${inputLabelClasses.shrink}`]: {
+                                  
+                                  color: "grey",
+                                  fontWeight:"bold"
+                                }
+                              }
+                            }}
                           >
-                            <MenuItem disabled>
-                              User Type
-                            </MenuItem>
-                            <MenuItem value="police">Police</MenuItem>
+                           
+                            <MenuItem sx={{ input: { color: 'white' }}} value="police">Police</MenuItem>
                             <MenuItem disabled value="non-police">Non-Police</MenuItem>
                           </Select>
                         </FormControl>
                       </Grid>
-                      <Grid item xs={12} style={{padding:"5px 8px"}}>
+                      <Grid item xs={12} style={{padding:"8px 8px"}}>
                       <Button
                       onClick={handleCAP}
                       disabled={loading}
                       fullWidth
                       variant="contained"
                       style={{ textAlign: "center" }}
-                      sx={{ mt: 3, mb: 2, backgroundColor:"#00C9B8" }}
+                      sx={{ mt: 1, mb: 2, backgroundColor:"#5b2395" }}
                     >
                       {loading ? <>Pending...</> : <>Register</>}
                     </Button>
@@ -352,8 +426,7 @@ const Form = (props) => {
                   </Box>
 
                 </Container>
-              </div>
-            </section>
+             
           </div>
         </>
       )}

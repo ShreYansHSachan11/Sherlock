@@ -17,6 +17,7 @@ import Login from '../../login'
 import FileData from '../../fileData'
 import Deanonymize from '../../deanonymze'
 import RequireLogin from './requireLogin';
+import Homepage from "../../homepage";
 
 
 const Home = () => {
@@ -26,7 +27,7 @@ const Home = () => {
         <Navbar />
         <Routes>
         
-          <Route path="/" element={ <Login/>}/>
+          <Route path="/" element={ <Homepage/>}/>
           <Route path="/analyze" element={<RequireLogin> <About/> </RequireLogin>} />
           <Route path="/anonymize" element={<RequireLogin> <Price/> </RequireLogin>} />
           <Route path="/guidelines" element={<RequireLogin> <Services/> </RequireLogin>} />
