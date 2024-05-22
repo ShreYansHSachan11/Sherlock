@@ -9,28 +9,29 @@ const dashboard = () => {
     const username = sessionStorage.getItem('username');
     const [filePairs, setFilePairs] = useState([]);
   const [receivedFilePairs, setReceivedFilePairs] = useState([]);
-    useEffect(() => {
-        const handleBackButton = () => {
-          // Navigate to the home page when clicking the browser's back button
-          navigate('/');
-        };
-    
-        window.history.pushState(null, null, window.location.pathname);
-        window.addEventListener('popstate', handleBackButton);
-    
-        // Clean up the event listener
-        return () => {
-          window.removeEventListener('popstate', handleBackButton);
-        };
-      }, [navigate]);
+ 
 
       useEffect(() => {
+        // Retrieve old data from local storage
+        const storedFilePairs = JSON.parse(sessionStorage.getItem('filePairs')) || [];
+        const storedReceivedFilePairs = JSON.parse(sessionStorage.getItem('receivedFilePairs')) || [];
+        setFilePairs(storedFilePairs);
+        setReceivedFilePairs(storedReceivedFilePairs);
+    
         const fetchData = async () => {
           try {
-            const id= sessionStorage.getItem("id");
+            const id = sessionStorage.getItem('id');
             const response = await axios.get(`https://sherlock-backend-4.onrender.com/${id}`);
-            setFilePairs(response.data.user.filePairs);
-            setReceivedFilePairs(response.data.user.sharedFilePairs); // Assuming sharedFilePairs are received files
+            const newFilePairs = response.data.user.filePairs;
+            const newReceivedFilePairs = response.data.user.sharedFilePairs;
+    
+            // Update state with new data
+            setFilePairs(newFilePairs);
+            setReceivedFilePairs(newReceivedFilePairs);
+    
+            // Store new data in local storage
+            sessionStorage.setItem('filePairs', JSON.stringify(newFilePairs));
+            sessionStorage.setItem('receivedFilePairs', JSON.stringify(newReceivedFilePairs));
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -38,15 +39,6 @@ const dashboard = () => {
     
         fetchData();
       }, []);
-
-      const recievedfileData = [
-        {
-          filename: 'Response.txt',
-          status: 'Anonymized',
-          shared: 'forensic',
-          lastModified: '2024-04-13'
-        },
-      ];
 
 
   return (
@@ -56,20 +48,20 @@ const dashboard = () => {
         
         <div className="dashboardHeader">
             <h3>Hi,&nbsp;&nbsp;&nbsp;{username} </h3>
-            <button className='dashButton'>
+            {/* <button className='dashButton'>
                 +Add New
-            </button>
+            </button> */}
         </div>
 
         <div className="dashboardPage-fileContainer">
             <h5>
-                Your Files
+                Files
             </h5>
             <div className="dashboardPage-fileContainer-box">
                 <div className="boxHeader">
                    <p>Name</p>
                 <p>Shared</p>
-                <p>Status</p>
+                
                 <p>Date</p> 
                 </div>
                 <div className="boxData">
@@ -79,23 +71,7 @@ const dashboard = () => {
 
         </div>
 
-        <div className="dashboardPage-fileContainer">
-            <h5>
-                Recieved Files
-            </h5>
-            <div className="dashboardPage-fileContainer-box">
-                <div className="boxHeader">
-                <p>Name</p>
-                <p>Recieved From</p>
-                <p>Status</p>
-                <p>Date</p> 
-                </div>
-                <div className="boxData">
-                <Card1 fileData={receivedFilePairs} />
-                </div>
-            </div>
-
-        </div>
+        
 
         </div>
     </div>

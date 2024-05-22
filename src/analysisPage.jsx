@@ -7,24 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import './analysisPage.css';
 
 
-const AdvancedAnalytics = ({ analyticsData }) => {
-  return (
-    <div className="advanced-analytics">
-      <h2>Advanced Analytics</h2>
-      <div className="analytics-data">
-        {analyticsData.map((entity, index) => (
-          <div key={index} className="entity">
-            <p><strong>Entity Type:</strong> {entity.entity_type}</p>
-            <p><strong>Recognizer Name:</strong> {entity.recognition_metadata?.recognizer_name}</p>
-            <p><strong>Score:</strong> {entity.score}</p>
-            <p><strong>Start:</strong> {entity.start}</p>
-            <p><strong>End:</strong> {entity.end}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
+
 
 
 function highlightEntities(text, entities, visibleEntities) {
@@ -68,7 +51,9 @@ function AnalysisPage() {
   const [responseText, setResponseText] = useState('');
   const [entityMapping, setEntityMapping] = useState('');
   const [filepair, setFilepair] = useState('');
+  const [allentities,setAllentities] = useState('');
   
+ 
 
   const showToast = (message) => {
     toast.error(message, {
@@ -155,26 +140,28 @@ function AnalysisPage() {
     }
 
     try {
+      
       const data = {
         text: state.originalData.text,
         entities: visibleEntities,
-        type: selectedOption
+        type: selectedOption,
+        all_entities: state.anonymizedData
       };
       const response = await axios.post(`${import.meta.env.VITE_REACT_APP_ML_API_KEY}/anonymize`, data);  
       setResponseText(response.data.anonymized_text.text);
-      setAnalyticsData(response.data);
+      setAnalyticsData(response.data.anonymized_text.text);
       // console.log(response.data.entity_mapping);
       const stringifiedEntityMapping = JSON.stringify(response.data.entity_mapping);
       setEntityMapping(stringifiedEntityMapping); 
-      
+      console.log("1.",responseText)
     } catch (error) {
       // console.error('Error:', error);
-     
+    
     }
   };
 
   const updateFilePair = async () => {
-    if (!entityMapping || !fileObject) {
+    if (!entityMapping && !fileObject) {
       console.error("Entity mapping or file object is missing");
       return;
     }
@@ -231,7 +218,7 @@ function AnalysisPage() {
     if (entityMapping && fileObject) {
       updateFilePair();
     }
-  }, [entityMapping, fileObject]); // Ensure dependencies are correct
+  }, [fileObject]); // Ensure dependencies are correct
   
 
 
@@ -373,10 +360,10 @@ function AnalysisPage() {
           <button className="btn1" onClick={handleSubmit}>
             SUBMIT
           </button>
-          <button className="btn-analytics" onClick={AdvancedAnalytics}>Advanced analytics</button>
+          <button className="btn-analytics" >Advanced analytics</button>
           </>
       )}
-    {analyticsData.length > 0 && <AdvancedAnalytics analyticsData={analyticsData} />}
+    {/* {analyticsData.length > 0 && <AdvancedAnalytics analyticsData={analyticsData} />} */}
     </div>
   );
 }

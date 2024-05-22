@@ -1,0 +1,70 @@
+.share-page {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  .file-display,
+  .upload-section {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  
+  .file-display pre {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 50vw;
+    white-space: break-spaces;
+    height: 70vh;
+    scrollbar-width: none;
+  }
+
+  .file-display img{
+    width:35vw;
+    height: 70vh;
+  }
+  
+  .upload-section input[type="file"],
+  .upload-section input[type="email"] {
+    display: block;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 50%;
+    background-color: ghostwhite;
+    border-radius: 5px;
+    font-size: 22px;
+    /* height: 300px !important; */
+    /* width: 316px; */
+    color: black;
+    border: 1px solid black;
+    box-sizing: border-box;
+  }
+  
+  .upload-section button {
+    padding: 10px 20px;
+    background-color: #00C9B8;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: 20px;
+    font-size: x-large;
+    border-radius: 4px;
+  }
+  
+  .upload-section button:hover {
+    background-color: #047067;
+  }
+  
+
+  .upload-section .upload{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+  }
+

@@ -16,6 +16,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   /* background-color: white; */
 }
 
@@ -23,13 +24,22 @@ a {
 
 .content-text{
   color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .home-hero h2{
   color: #f1f3f4;
+  font-size: 60px;
+  color: black;
+  font-weight: 700;
+  
 }
 .home-hero p{
-  color: #f1f3f4;
+  color: #000000;
+  font-size: 16px;
 }
 
 
@@ -39,9 +49,15 @@ a {
   margin: 30px 0;
   padding: 0.6em 0.8em;
   font-size: 0.7em;
-  font-weight: 500;
+  width: 12.9rem;
+  align-items: center;
+  height: 3rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
   font-family: inherit;
-  background-color: #5b2395;
+  background-color: #00C9B8;
   cursor: pointer;
   transition: border-color 0.25s;
   }
@@ -68,13 +84,20 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40%;
+    width: 50%;
   flex-direction: column;
+  color: black;
+  margin-top:50px;
   
 }
 
 .hero-leftSection p{
-    font-size: 18px;
+  font-size: 16px;
+  width: 528px;
+  text-align: center;
+  text-align: justify;
+  color: black;
+  
 }
 
 .hero-rightSection
@@ -82,7 +105,7 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50%;
+    /* width: 50%; */
 }
 
 .hero-rightSection img{
@@ -98,7 +121,8 @@ a {
     width: 100vw;
     align-items: center;
     /* justify-content: center; */
-    height: 100vh;
+    height: 80vh;
+    border-bottom: 1px solid black;
 }
 
 #home-hero::after{
@@ -108,13 +132,15 @@ a {
   top: 0;
   width: 100%;
   height: 100vh;
-  background: url("https://miro.medium.com/v2/resize:fit:1100/format:webp/1*wJt3v7Gs46uticTUj4y9zg.gif");
+  background: url('./assets/backdrop.svg');
+  
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
+  background-size: contain;
+  background-position: left center;
   background-attachment: fixed;
   z-index: -1;
-  filter: hue-rotate(45deg) brightness(0.5);
+  /* filter: brightness(0.5) ; */
+ 
 }
 
 
@@ -187,12 +213,16 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(-5.4deg, rgb(36, 45, 57) -10.8%, rgb(17, 1, 23) 12.2%, rgb(0, 0, 0) 99.6%);
+  background: white;
   width:100vw;
 flex-direction: column;
-color: #fff;
+padding: 100px 0;
+color: black;
 }
 
+.whyus h2{
+  font-weight: 500;
+}
 
 .whyus-box{
 display: flex;
@@ -221,6 +251,9 @@ flex-wrap: wrap;
   font-size: 14px;
 }
 
+.whyus-card h6{
+  margin: 22px 0;
+}
 
 .features-grid {
   padding: 1rem;

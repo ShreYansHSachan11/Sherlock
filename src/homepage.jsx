@@ -1,55 +1,44 @@
-import { useEffect, useRef } from 'react'
-import './homepage.css'
-import Features from '../src/components/features/features'
-import anonymize from '../src/assets/demo2.svg';
-import cardimg from '../src/assets/hero.jpeg'
-import hero1 from '../src/assets/home3.svg'
-import hero2 from '../src/assets/home4.svg'
-import hero3 from '../src/assets/home5.svg'
+import { useEffect, useRef } from "react";
+import {
+  BrowserRouter as Router,
+  NavLink,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
+import "./homepage.css";
+import Features from "../src/components/features/features";
+import anonymize from "../src/assets/demo2.svg";
+import cardimg from "../src/assets/hero.jpeg";
+import hero1 from "../src/assets/home3.svg";
+import hero2 from "../src/assets/home4.svg";
+import hero3 from "../src/assets/home5.svg";
+import Footer from "./components/card/footer/footer";
 
 const WelcomeSection = () => {
-  
-
-  return (   
+  return (
     <>
+      <div className="homepage-contain">
+        <header id="home-hero" className="home-hero">
+          <section class="hero-header-contain">
+            <div className="hero-leftSection">
+              <div class="content-text">
+                {/* <h2>Building digital</h2> */}
+                <h2>Data Privacy for Law Enforcement</h2>
 
-    <div className="homepage-contain">
-    <header id="home-hero" className='home-hero'>
-      
-      <section class="hero-header-container">
-        
-       
-       <div className="hero-leftSection">
-       <div class="content-text">
-          {/* <h2>Building digital</h2> */}
-          <h2>Data Privacy for Law Enforcement</h2>
-            
-          <p>
-          Discover our advanced tools and frameworks for anonymizing sensitive data and ensuring compliance with privacy regulations.
-          </p>
-        </div>
-        <button className="hero-btn">
-        <a
-          href="https://github.com/CommunityPro/portfolio-html"
-          class="btn btn-secondary"
-          target="_blank"
-          >Get Started</a
-        >
-        </button>
-       </div>
-
-       <div className="hero-rightSection">
-        {/* <img src="src\assets\folder.png" alt="" srcset="" /> */}
-       </div>
-        
-      </section>
-       
-
-     
-
-
-    </header>
-    <div className="domain">
+                <p>
+                  Discover our advanced tools and frameworks for anonymizing
+                  sensitive data and ensuring compliance with privacy
+                  regulations.
+                </p>
+              </div>
+              <button className="hero-btn">
+                <NavLink to="/anonymize">Get Started</NavLink>
+              </button>
+            </div>
+          </section>
+        </header>
+        {/* <div className="domain">
       <h3>Our Features</h3>
     <section class="features-grid">
   
@@ -90,31 +79,41 @@ const WelcomeSection = () => {
   
  
 </section>
-</div>
-<div className="whyus">
-<h2>Why Choose Us?</h2>
-<div className="whyus-box">
-<div className="whyus-card">
-  <img src={cardimg} alt="" />
-  <h4>Anonymization</h4>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores id est explicabo iusto sit voluptate animi, sapiente deleniti? Commodi, rerum!</p>
-</div>
-<div className="whyus-card">
-  <img src={cardimg} alt="" />
-  <h4>Anonymization</h4>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores id est explicabo iusto sit voluptate animi, sapiente deleniti? Commodi, rerum!</p>
-</div>
-<div className="whyus-card">
-  <img src={cardimg} alt="" />
-  <h4>Anonymization</h4>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores id est explicabo iusto sit voluptate animi, sapiente deleniti? Commodi, rerum!</p>
-</div>
+</div> */}
+        <div className="whyus">
+          <h2>Our Features</h2>
+          <div className="whyus-box">
+            <div className="whyus-card">
+              <img src={hero1} alt="" />
+              <h6>Selective Anonymization</h6>
+              <p>
+                It was popularised in the 1960s with the release of Letraset
+                sheets containing
+              </p>
+            </div>
+            <div className="whyus-card">
+              <img src={hero2} alt="" />
+              <h6>3rd Party Sharing</h6>
+              <p>
+                It was popularised in the 1960s with the release of Letraset
+                sheets containing
+              </p>
+            </div>
+            <div className="whyus-card">
+              <img src={hero3} alt="" />
+              <h6>Authorised De-anonymization</h6>
+              <p>
+                It was popularised in the 1960s with the release of Letraset
+                sheets containing
+              </p>
+            </div>
+          </div>
+        </div>
 
-</div>
-</div>
-</div>
-    </> 
-  )
-}
+        <Footer />
+      </div>
+    </>
+  );
+};
 
-export default WelcomeSection
+export default WelcomeSection;

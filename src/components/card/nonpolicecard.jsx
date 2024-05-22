@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./card.css";
-import fileicon from "../../assets/dashboardFile.png";
 import { useNavigate } from "react-router-dom";
+import "./card.css";
 
 const Card = () => {
   const navigate = useNavigate();
@@ -12,8 +11,12 @@ const Card = () => {
     setFileData(receivedFilePairs);
   }, []);
 
-  const handleNavigate = (event, inputFile, outputFile) => {
-   
+  const handleNavigate = (event, filePairId, sharedFromId) => {
+    event.preventDefault();
+    console.log(sharedFromId)
+    navigate(`/share/${filePairId}`, {
+      state: { filePairId, sharedFromId },
+    });
   };
 
   const uniqueFileData = [];
@@ -33,15 +36,15 @@ const Card = () => {
           <p>
             <span>{index + 1}.&nbsp; &nbsp; </span>
             <a
-              href="/deanonymize"
-              onClick={(event) => handleNavigate(event, file.inputFile, file.resultdata)}
+              href={`/share/${file.filePairId}`}
+              onClick={(event) => handleNavigate(event, file.filePairId, file.sharedFrom)}
               className="file-link"
             >
-              {file.filePairId}
+              {`file ${index+1}`}
             </a>
           </p>
-          <p>{file.sharedFrom}</p>
-          <p>{file.status}</p>
+          <p>{file.sharedFromEmail}</p>
+          
           <p>21/05/24</p>
         </div>
       ))}

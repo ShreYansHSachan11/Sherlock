@@ -5,6 +5,8 @@
     flex-direction: column;
     color: rgb(255, 255, 255);
    width: 100vw;
+   background: #fff;
+   padding-top: 40px;
 }
 
 .dashboardPage::after{
@@ -14,13 +16,14 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background: url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-038.jpg");
+    /* background: url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-038.jpg"); */
+    /* background: #fff; */
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
     background-attachment: fixed;
     z-index: -1;
-    filter: brightness(0.7) blur(1px);
+    /* filter: brightness(0.7) blur(1px); */
 }
 
 
@@ -36,11 +39,12 @@
 .dashboardHeader{
     display: flex;
     width: 80vw;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    color: black;
-    margin: 50px 0;
+    color: rgb(0, 0, 0);
+    margin: 25px 0;
     height: 46px;
+    
 }
 
 .dashButton{
@@ -52,7 +56,7 @@
     font-size: 1.2rem;
     border-radius: 5px;
     background-color: #FCD200;
-    color: #fff;
+    color: #000000;
     border: none;
     cursor: pointer;
 }
@@ -68,6 +72,10 @@ margin-bottom: 20px;
     text-align: left;
     margin: 0;
     padding:0 10px;
+    color: #000000;
+}
+.boxHeader p{
+    margin:0;
 }
 
 .dashboardPage-fileContainer-box{
@@ -75,10 +83,10 @@ margin-bottom: 20px;
     width:80vw;
     /* justify-content: center; */
     /* align-items: center; */
-    border: 1px solid rgb(255, 255, 255);
+    border: 1px solid rgb(0, 0, 0);
     flex-direction: column;
     margin:10px;
-    padding: 10px;
+    /* padding: 10px; */
     border-radius: 8px;
 }
 
@@ -89,18 +97,21 @@ margin-bottom: 20px;
     font-size: 16px;
     border-bottom: 1px solid black;
     font-weight: 600;
+    color: #000000;
     height: 35px;
-    margin: 0;
+    /* margin: 0; */
+    padding: 10px;
     width: -webkit-fill-available;
+
 }
 
 .boxData{
-    height: 30vh;
+    height: 60vh;
     width: 80vw;
     overflow-y: scroll;
     scrollbar-width: none;
 }
 
 .dashboardHeader h3{
-    color: white;
+    color: rgb(0, 0, 0);
 }

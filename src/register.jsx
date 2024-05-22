@@ -193,14 +193,14 @@ const Form = (props) => {
       
         <div className="registerPage">
         {token ? (
-        <div style={{color:"white"}}>You are already Registered !</div>
+        <div style={{color:"black"}}>You are already Registered !</div>
       ) : (
         <>
           <CssBaseline />
           
-                <Container fixed style={{border:"1px solid grey", display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column", marginTop:"50px", backdropFilter:"blur(20px) brightness(2)", borderRadius:"5px",width:"700px" }}>
+          <Container fixed style={{border:"1px solid black", display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column", marginTop:"50px", width:"700px"}}>
                   <div className={styles.head}>
-                    <h1 style={{marginTop:"40px", color:"white"}}>SIGN UP</h1>
+                    <h1 style={{marginTop:"40px"}}>Sign Up</h1>
                   </div>
                   <Box
                     component="form"
@@ -210,7 +210,7 @@ const Form = (props) => {
                     className={styles.input}
                   >
                     <Grid container spacing={2}>
-                      <Grid item xs={6} style={{padding:"8px 8px"}}>
+                      <Grid item xs={6} style={{padding:"5px 8px"}}>
                         <TextField
                           required
                           id="outlined-required"
@@ -228,23 +228,10 @@ const Form = (props) => {
                             const namePattern = /^[A-Za-z]{3,20}$/;
                             setFnameerr(!namePattern.test(e.target.value));
                           }}
-                          sx={{ input: { color: 'white' } , width: "100%", borderRadius:"5px"}}
-                          InputLabelProps={{
-                            sx: {
-                             
-                              color: "grey",
-
-                              [`&.${inputLabelClasses.shrink}`]: {
-                               
-                                color: "white",
-                                fontWeight:"bold"
-                              }
-                            }
-                          }}
-                          
+                          sx={{ color: color, width: "100%", background:"ghostwhite" }}
                         />
                       </Grid>
-                      <Grid item xs={6} style={{padding:"8px 8px"}}>
+                      <Grid item xs={6} style={{padding:"5px 8px"}}>
                         <TextField
                           required
                           id="outlined-required"
@@ -260,22 +247,10 @@ const Form = (props) => {
                             const namePattern = /^[A-Za-z]{3,20}$/;
                             setLnameerr(!namePattern.test(e.target.value));
                           }}
-                          sx={{ input: { color: 'white' } , width: "100%", borderRadius:"5px"}}
-                          InputLabelProps={{
-                            sx: {
-                             
-                              color: "grey",
-
-                              [`&.${inputLabelClasses.shrink}`]: {
-                               
-                                color: "white",
-                                fontWeight:"bold"
-                              }
-                            }
-                          }}
+                          sx={{ color: color, width: "100%", background:"ghostwhite" }}
                         />
                       </Grid>
-                      <Grid item xs={12} style={{padding:"8px 8px"}}>
+                      <Grid item xs={12} style={{padding:"5px 8px"}}>
                         <TextField
                           required
                           id="outlined-required"
@@ -291,23 +266,11 @@ const Form = (props) => {
                             const emailpattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                             setMailerr(!emailpattern.test(e.target.value));
                           }}
-                          sx={{ input: { color: 'white' } , width: "100%", borderRadius:"5px"}}
-                          InputLabelProps={{
-                            sx: {
-                              
-                              color: "grey",
-
-                              [`&.${inputLabelClasses.shrink}`]: {
-                               
-                                color: "white",
-                                fontWeight:"bold"
-                              }
-                            }
-                          }}
+                          sx={{ color: color, width: "100%", background:"ghostwhite" }}
                         />
                       </Grid>
 
-                      <Grid item xs={6} style={{padding:"8px 8px"}}>
+                      <Grid item xs={6} style={{padding:"5px 8px"}}>
                         <TextField
                           required
                           id="outlined-required"
@@ -328,23 +291,11 @@ const Form = (props) => {
                               !passwordpattern.test(e.target.value)
                             );
                           }}
-                          sx={{ input: { color: 'white' } , width: "100%", borderRadius:"5px"}}
-                          InputLabelProps={{
-                            sx: {
-                            
-                              color: "grey",
-
-                              [`&.${inputLabelClasses.shrink}`]: {
-                               
-                                color: "white",
-                                fontWeight:"bold"
-                              }
-                            }
-                          }}
+                          sx={{ color: color, width: "100%", background:"ghostwhite" }}
                         />
                       </Grid>
 
-                      <Grid item xs={6} style={{padding:"8px 8px"}}>
+                      <Grid item xs={6} style={{padding:"5px 8px"}}>
                         <TextField
                           required
                           id="outlined-required"
@@ -365,24 +316,12 @@ const Form = (props) => {
                               !passwordpattern.test(e.target.value)
                             );
                           }}
-                          sx={{ input: { color: 'white' } , width: "100%", borderRadius:"5px"}}
-                          InputLabelProps={{
-                            sx: {
-                             
-                              color: "grey",
-
-                              [`&.${inputLabelClasses.shrink}`]: {
-                               
-                                color: "white",
-                                fontWeight:"bold"
-                              }
-                            }
-                          }}
+                          sx={{ color: color, width: "100%", background:"ghostwhite" }}
                         />
                       </Grid>
-                      <Grid item xs={12} style={{padding:"8px 8px"}}>
-                        <FormControl sx={{ minWidth: 580 ,input: { color: 'white' } , width: "100%", borderRadius:"5px"}}>
-                          <InputLabel id="user-type-label" sx={{color:"grey"}}>
+                      <Grid item xs={12} style={{padding:"5px 8px"}}>
+                        <FormControl sx={{ minWidth: 580 }}>
+                          <InputLabel id="user-type-label">
                             User Type
                           </InputLabel>
                           <Select
@@ -391,34 +330,24 @@ const Form = (props) => {
                             onChange={(e) => setUsertype(e.target.value)}
                             variant="outlined"
                             fullWidth
-                            sx={{ input: { color: 'white' } , width: "100%", borderRadius:"5px"}}
-                            
-                             InputLabelProps={{
-                              sx: {
-                               
-                                color: "grey",
-  
-                                [`&.${inputLabelClasses.shrink}`]: { 
-                                  color: "grey",
-                                  fontWeight:"bold"
-                                }
-                              }
-                            }}
+                            sx={{ color: color, width: "100%", background:"ghostwhite" }}
                           >
-                           
-                            <MenuItem sx={{ input: { color: 'white' }}} value="police">Police</MenuItem>
+                            <MenuItem disabled>
+                              User Type
+                            </MenuItem>
+                            <MenuItem value="police">Police</MenuItem>
                             <MenuItem disabled value="non-police">Non-Police</MenuItem>
                           </Select>
                         </FormControl>
                       </Grid>
-                      <Grid item xs={12} style={{padding:"8px 8px"}}>
+                      <Grid item xs={12} style={{padding:"5px 8px"}}>
                       <Button
                       onClick={handleCAP}
                       disabled={loading}
                       fullWidth
                       variant="contained"
                       style={{ textAlign: "center" }}
-                      sx={{ mt: 1, mb: 2, backgroundColor:"#5b2395" }}
+                      sx={{ mt: 3, mb: 2, backgroundColor:"#00C9B8" }}
                     >
                       {loading ? <>Pending...</> : <>Register</>}
                     </Button>

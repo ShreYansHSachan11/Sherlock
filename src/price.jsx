@@ -5,6 +5,7 @@ import lottie from "lottie-web";
 import uploadFile from "./assets/upload.json";
 import loader from "./assets/analyzing.json";
 import { FileUploader } from "react-drag-drop-files";
+import Uploader from './components/fileuploader/upload'
 import "./price.css";
 
 const fileTypes = ["JPG"];
@@ -18,6 +19,7 @@ function Homepage() {
   const [fileObject, setFileObject] = useState(null);
   const [loading, setLoading] = useState(false);
   const [loadingText, setLoadingText] = useState('Loading');
+  const [activeSection, setActiveSection] = useState(null);
   const dummyTexts = [
     'Fetching data',
     'Preparing content',
@@ -27,8 +29,34 @@ function Homepage() {
   ];
 
 
+  const handleTextSectionClick = (event) => {
+    setActiveSection('text');
+    setSelectedFile(event.target.files[0]);
+  };
+
+  const handleFileSectionClick = () => {
+    setActiveSection('file');
+  };
+
+  const getSectionStyle = (section) => {
+    if (activeSection === section) {
+      return { transform: 'scaleX(1.1)', transition: 'transform 0.5s ease,',
+      zIndex: '1'
+       };
+    } else if (activeSection) {
+      return { transform: 'scale(0.9)', transition: 'transform 0.5s ease',
+      zIndex: '0',
+      opacity:"0.5",
+      background:'white'
+
+       };
+    } else {
+      return { transform: 'scale(1)', transition: 'transform 0.5s ease' };
+    }
+  };
+ 
   if(text){sessionStorage.setItem('inputFile', text);}
-  
+    
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -304,7 +332,8 @@ function Homepage() {
       <div className="homepage-container-contents">
         <h3>ANONYMIZER</h3>
         <div className="input-sections">
-          <div className="input-section">
+          <div className="input-section" onClick={handleTextSectionClick}
+            style={getSectionStyle('text')}>
             <textarea
               className="text-area"
               value={text}
@@ -313,8 +342,9 @@ function Homepage() {
               placeholder="Enter Text Here"
             />
           </div>
-          <h6>OR</h6>
-          <div className="input-section">
+          {/* <h6 className="h6-center">OR</h6> */}
+          <div className="input-section" onClick={handleFileSectionClick} 
+            style={getSectionStyle('file')}>
             <div id="uploadFile" style={{ width: 280, height: 280 }} />
             <FileUploader
               handleChange={handleChange}
@@ -323,12 +353,13 @@ function Homepage() {
               types={fileTypes}
               label="Upload or Drag & drop files"
             />
+            {/* <Uploader/> */}
           </div>
         </div>
         {loading ? (
           <><div className="loaderContainer">
           <div id="loader" style={{ width: 140, height: 100 }} />
-          <p style={{color:"white"}}>{loadingText}</p></div></>
+          <p style={{color:"black"}}>{loadingText}</p></div></>
           
         ) : (
           <button

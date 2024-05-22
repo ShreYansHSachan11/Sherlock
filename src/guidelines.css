@@ -1,5 +1,25 @@
 .guidelinesPage{
-    background-color: black;
-    height: 100vh;
-    width: 100vw;
+    /* background-color: black; */
+       /* background-color: black; */
+       height: 100vh;
+       width: 80vw;
+       flex-direction: column;
+       display: flex;
+       /* justify-content: center; */
+       align-items: center;
+       padding-top: 100px;
+}
+
+
+.guidelinesPage li{
+    font-size: 16px;
+    text-align: justify;
+}
+
+.guidelinesSection1{
+    margin: 60px 0;
+}
+
+.guidelinesPage ul{
+    list-style: disc;
 }

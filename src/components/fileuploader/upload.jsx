@@ -1,93 +1,87 @@
-import { useCallback, useEffect, useState } from 'react';
-import { createWorker } from 'tesseract.js';
-import axios from 'axios';
+// Filename - App.js
+
+import axios from "axios";
 import './upload.css'
+import React, { Component } from "react";
 
-const Fileuploader = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [textResult, setTextResult] = useState("");
+class App extends Component {
+	state = {
+		// Initially, no file is selected
+		selectedFile: null,
+	};
 
-  const worker = createWorker();
+	// On file select (from the pop up)
+	onFileChange = (event) => {
+		// Update the state
+		this.setState({
+			selectedFile: event.target.files[0],
+		});
+    const formData = new FormData();
 
-  const convertImageToText = useCallback(async () => {
-    if(!selectedImage) return;
-    const worker = await createWorker('eng');
-    const { data } = await worker.recognize(selectedImage);
-    setTextResult(data.text);
-  }, [worker, selectedImage]);
+		// Update the formData object
+		formData.append(
+			"myFile",
+			this.state.selectedFile,
+			this.state.selectedFile.name
+		);
+
+		// Details of the uploaded file
+		console.log(this.state.selectedFile);
+
+		// Request made to the backend api
+		// Send formData object
+		axios.post("api/uploadfile", formData);
+	};
 
 
-  const tomlmodel = useCallback(async () => {
-    try {
-      const response = await axios.post('https://ab54-35-229-225-98.ngrok-free.app/', {
-        textResult: textResult,
-      });
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [textResult]);
 
-  useEffect(() => {
-    convertImageToText();
-    
-  }, [selectedImage, convertImageToText])
+	fileData = () => {
+		if (this.state.selectedFile) {
+			return (
+				<div className="uploadContainer">
+					<h2>File Details:</h2>
+					<p>
+						File Name:{" "}
+						{this.state.selectedFile.name}
+					</p>
 
-  useEffect(() => {
-    tomlmodel();
-    
-  }, [selectedImage])
+					<p>
+						File Type:{" "}
+						{this.state.selectedFile.type}
+					</p>
 
-  const uploadingtodatabase = async (e) => {
-  if (!e.target.files[0]) {
-    setSelectedImage(null);
-    setTextResult("");
-    return;
-  }
+					<p>
+						Last Modified:{" "}
+						{this.state.selectedFile.lastModifiedDate.toDateString()}
+					</p>
+				</div>
+			);
+		} else {
+			return (
+				<div>
+					<br />
+					
+				</div>
+			);
+		}
+	};
 
-  setSelectedImage(e.target.files[0]);
-
-  const formData = new FormData();
-  formData.append("name", "saurabh rajput");
-  formData.append("file", e.target.files[0]);
-  formData.append("textdata", "hello good value ");
-
-  try {
-    const response = await axios.post("https://sherlock-backend-4.onrender.com/filedata", formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
-    console.log(response);
-  } catch (error) {
-    console.log(error);
-  }
+	render() {
+		return (
+			<div className="uploaderinput">
+				
+				
+				<div >
+					<input
+						type="file"
+						onChange={this.onFileChange}
+					/>
+					
+				</div>
+				{this.fileData()}
+			</div>
+		);
+	}
 }
 
-
-  return (
-    <div className="Dropbox">
-      
-     
-      <div className="input-wrapper">
-        <label htmlFor="upload">Upload Image</label>
-        <input type="file" id="upload" accept='image/*' onChange={uploadingtodatabase} />
-      </div>
-
-      <div className="result">
-        {selectedImage && (
-          <div className="box-image">
-            <img src={URL.createObjectURL(selectedImage)} alt="thumb" />
-          </div>
-        )}
-        {textResult && (
-          <div className="box-p">
-            <p>{textResult}</p>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-export default Fileuploader;
+export default App;

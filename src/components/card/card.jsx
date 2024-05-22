@@ -1,25 +1,14 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './card.css';
-import fileicon from "../../assets/dashboardFile.png";
-import share from '../../assets/share.png';
+import fileIcon from "../../assets/dashboardFile.png";
+import shareIcon from '../../assets/share.png';
 import axios from "axios";
 
 const Card = ({ fileData }) => {
-  const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
   const [email, setEmail] = useState('');
-  
   const [currentFilePairId, setCurrentFilePairId] = useState('');
-
-  const handleNavigate = (event, inputFile, outputFile) => {
-    event.preventDefault();
-    navigate('/filedata', {
-      state: { inputFile, outputFile },
-    });
-  };
-
-
+  const [openFilePair, setOpenFilePair] = useState(null);
 
   const handleShareClick = (filePairId) => {
     setCurrentFilePairId(filePairId);
@@ -32,26 +21,19 @@ const Card = ({ fileData }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // Perform API call to share file
-    // Example: Replace the API_URL with your actual API endpoint
     try {
-      const useremail=sessionStorage.getItem("email");
+      const useremail = sessionStorage.getItem("email");
       const formData = new FormData();
       formData.append("sharedFromEmail", useremail);
       formData.append("sharedToEmail", email);
       formData.append("filePairId", currentFilePairId);
-      const response =  await axios.post("https://sherlock-backend-4.onrender.com/share-file-pair",
-      formData,
-       {
-        method: 'POST',
+      const response = await axios.post("https://sherlock-backend-4.onrender.com/share-file-pair", formData, {
         headers: {
           'Content-Type': 'application/json',
         },
-       
       });
-      if (response.ok) {
-        console.log('File shared successfully');
-        // Close the modal after successful sharing
+      if (response.status === 201) {
+        alert('File shared successfully');
         setModalOpen(false);
       } else {
         console.error('Failed to share file');
@@ -61,38 +43,59 @@ const Card = ({ fileData }) => {
     }
   };
 
+  const toggleFilePairDetails = (filePairId) => {
+    setOpenFilePair(openFilePair === filePairId ? null : filePairId);
+  };
+
+  const getUniqueEmails = (emails) => {
+    return Array.from(new Set(emails));
+  };
+
   return (    
     <div>
       {fileData.map((file, index) => (
-        <div key={index} className="card">
-          {/* <img src={fileicon} alt="" /> */}
-          <p>
-          <span>{index + 1}.&nbsp; &nbsp; </span>
-            <a
-              href="/filedata"
-              onClick={(event) => handleNavigate(event, file.inputFile, file.resultdata)}
-              className="file-link"
-            >
-              {file.filePairId}
-            </a>
+        <div key={index} className="cards">
+          <div className="card">
+            <p>
+              <span>{index + 1}.&nbsp;&nbsp;</span>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  toggleFilePairDetails(file.filePairId);
+                }}
+                className="file-link"
+              >
+                <img src={fileIcon} alt="File Icon" />
+                {`file ${index+1}`}
+              </a>
+              
+            </p>
             
-            <img src={share} className='shareicon' alt="" onClick={() => handleShareClick(file.filePairId)} />
-          </p>
-          <p>{file.shared}</p>
-          <p>{file.status}</p>
-          <p>{new Date(file.lastModified).toLocaleDateString()}</p>
+            <p>{getUniqueEmails(file.sharedFileEmailsData).join(', ')}</p>
+            <p>{index+2}/05/24</p>
+          </div>
+          {/* Details Section */}
+          {openFilePair === file.filePairId && (
+            <div key={`${file.filePairId}-details`} className="details">
+              <ul>
+                <li>Input File: <a href={file.inputFile}> input</a> <img src={shareIcon} className='share-icon' alt="Share Icon" onClick={() => handleShareClick(file.filePairId)} /></li>
+                <li>Anonymized File: <a href={file.resultdata}>Output</a><img src={shareIcon} className='share-icon' alt="Share Icon" onClick={() => handleShareClick(file.filePairId)} /></li>
+                <li>Report: <a href={file.report}>Report</a></li>
+              </ul>
+            </div>
+          )}
         </div>
       ))}
-      {/* Modal for sharing */}
+
       {modalOpen && (
         <div className="modal" onClick={handleCloseModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <span className="close" onClick={handleCloseModal}>&times;</span>
             <h2>Share File</h2>
-            <form  className='form-container' onSubmit={handleSubmit}>
-              <label>Reciever Email:</label>
+            <form className='form-container' onSubmit={handleSubmit}>
+              <label>Receiver Email:</label>
               <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-             
               <button type="submit">Share</button>
             </form>
           </div>
