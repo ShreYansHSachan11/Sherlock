@@ -1,11 +1,5 @@
 import { useEffect, useRef } from "react";
-import {
-  BrowserRouter as Router,
-  NavLink,
-  Routes,
-  Route,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, NavLink, Routes, Route, useNavigate } from "react-router-dom";
 import "./homepage.css";
 import Features from "../src/components/features/features";
 import anonymize from "../src/assets/demo2.svg";
@@ -16,70 +10,37 @@ import hero3 from "../src/assets/home5.svg";
 import Footer from "./components/card/footer/footer";
 
 const WelcomeSection = () => {
+  const navigate = useNavigate();
+
+  const handleGetStartedClick = () => {
+    const role = sessionStorage.getItem('role');
+    if (role === 'nopolice') {
+      navigate('/nonpolicedashboard');
+    } else {
+      navigate('/anonymize');
+    }
+  };
+
   return (
     <>
       <div className="homepage-contain">
         <header id="home-hero" className="home-hero">
-          <section class="hero-header-contain">
+          <section className="hero-header-contain">
             <div className="hero-leftSection">
-              <div class="content-text">
-                {/* <h2>Building digital</h2> */}
+              <div className="content-text">
                 <h2>Data Privacy for Law Enforcement</h2>
-
                 <p>
                   Discover our advanced tools and frameworks for anonymizing
                   sensitive data and ensuring compliance with privacy
                   regulations.
                 </p>
               </div>
-              <button className="hero-btn">
-                <NavLink to="/anonymize">Get Started</NavLink>
+              <button className="hero-btn" onClick={handleGetStartedClick}>
+                Get Started
               </button>
             </div>
           </section>
         </header>
-        {/* <div className="domain">
-      <h3>Our Features</h3>
-    <section class="features-grid">
-  
-
-  <article class="features-group">
-    <div class="features-image">
-      <img src={hero1} alt="Illustration of a man touching a large check icon"/>
-       
-    </div>
-    <div class="features-text">
-      <h2>Selective Text Anonymization in Documents</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae corporis totam repellat ea fuga officia ipsa, mollitia odit reprehenderit.</p>
-    </div>
-  </article>
-  
-  
-  <article class="features-group">
-    <div class="features-image inverse">
-      <img src={hero2} alt="Illustration of a woman standing next to a screen with portfolio items"/>
-    </div>
-    <div class="features-text">
-      <h2>Image Recognition and Selective Blurring</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae corporis totam repellat ea fuga officia ipsa, mollitia odit reprehenderit.</p>
-    </div>
-  </article>
-  
-  
-  <article class="features-group">
-    <div class="features-image">
-      <img src={hero3} alt="Illustration of a man in a suit pointing to a bar chart that is going up"/>
-    </div>
-    <div class="features-text">
-      <h2>Face Blurring in  Videos</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae corporis totam repellat ea fuga officia ipsa, mollitia odit reprehenderit.</p>
-    </div>
-  </article>
-  
-  
- 
-</section>
-</div> */}
         <div className="whyus">
           <h2>Our Features</h2>
           <div className="whyus-box">
