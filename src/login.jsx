@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"; // Assuming you're using React R
 import { inputLabelClasses } from "@mui/material/InputLabel";
 import CircularProgress from '@mui/material/CircularProgress';
 import { ToastContainer, toast } from "react-toastify";
+import { OutlinedInput } from '@mui/material';
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import './login.css'
@@ -138,7 +139,7 @@ const LoginPage = () => {
           >
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <TextField
+                <TextField variant="outlined"
                   required
                   fullWidth
                   id="email"
@@ -147,7 +148,12 @@ const LoginPage = () => {
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  sx={{color:"black", background:"white", borderRadius:"5px" }}
+                  sx={{color:"black", background:"white", borderRadius:"5px","& .MuiOutlinedInput-notchedOutline" : {
+                    borderColor : "red",
+                 },
+                "&:hover > .MuiOutlinedInput-notchedOutline" : {
+                    borderColor : "lime"
+                 }  }}
                   // InputLabelProps={{
                   //   sx: {
                   //     // set the color of the label when not shrinked
@@ -162,7 +168,7 @@ const LoginPage = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
+                <TextField variant="outlined"
                   required
                   fullWidth
                   name="password"

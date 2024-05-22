@@ -336,7 +336,7 @@ const Form = (props) => {
                               User Type
                             </MenuItem>
                             <MenuItem value="police">Police</MenuItem>
-                            <MenuItem disabled value="non-police">Non-Police</MenuItem>
+                            <MenuItem value="nopolice">Non-Police</MenuItem>
                           </Select>
                         </FormControl>
                       </Grid>

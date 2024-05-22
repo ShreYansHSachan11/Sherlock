@@ -23,3 +23,7 @@
     z-index: -1;
     /* filter: hue-rotate(45deg) brightness(0.5) blur(1px);   */
 }
+
+.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: #000 !important;
+}
