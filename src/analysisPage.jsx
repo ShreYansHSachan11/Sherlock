@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import './analysisPage.css';
@@ -316,6 +318,7 @@ function AnalysisPage() {
                 {/* <h3>Anonymized Data</h3> */}
                 <div className="anonymizedData box">
                   {anonymizedContent}
+                  
                 </div>
               </div>
             </div>
