@@ -1,47 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./card.css";
-import fileicon from "../../assets/dashboardFile.png";
-import { useNavigate } from "react-router-dom";
 
-const Card = () => {
-  const navigate = useNavigate();
-  const [fileData, setFileData] = useState([]);
-
-  useEffect(() => {
-    const receivedFilePairs = JSON.parse(sessionStorage.getItem('receivedFilePairs')) || [];
-    setFileData(receivedFilePairs);
-  }, []);
-
-  const handleNavigate = (event, inputFile, outputFile) => {
-   
-  };
-
-  const uniqueFileData = [];
-  const filePairIds = new Set();
-
-  fileData.forEach(file => {
-    if (!filePairIds.has(file.filePairId)) {
-      filePairIds.add(file.filePairId);
-      uniqueFileData.push(file);
-    }
-  });
+const Card = ({ fileData, onFilePairClick }) => {
+  // Filter fileData to include only report files
+  const reportFiles = fileData.filter(file => file.report);
 
   return (
     <div className="card-container">
-      {uniqueFileData.map((file, index) => (
-        <div key={file.filePairId} className="card">
+      {reportFiles.map((file, index) => (
+        <div key={file.filePairId} className="card" onClick={() => onFilePairClick(file.filePairId)}>
           <p>
             <span>{index + 1}.&nbsp; &nbsp; </span>
-            <a
-              href="/deanonymize"
-              onClick={(event) => handleNavigate(event, file.inputFile, file.resultdata)}
-              className="file-link"
-            >
+            <a href="#" className="file-link">
               {file.filePairId}
             </a>
           </p>
           <p>{file.sharedFrom}</p>
-          <p>{file.status}</p>
+          <p>report</p>
           <p>21/05/24</p>
         </div>
       ))}

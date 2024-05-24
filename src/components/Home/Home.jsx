@@ -35,6 +35,7 @@ const Home = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/share/:filePairId" element={<RequireLogin><Share /></RequireLogin>} />
+          
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       );
@@ -50,6 +51,7 @@ const Home = () => {
           <Route path="/dashboard" element={<RequireLogin><Dashboard /></RequireLogin>} />
           <Route path="/fileData" element={<RequireLogin><FileData /></RequireLogin>} />
           <Route path="/deanonymize" element={<RequireLogin><Deanonymize /></RequireLogin>} />
+          <Route path="/deanonymize/:filePairId" element={<RequireLogin><Deanonymize /></RequireLogin>} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<Navigate to="/" />} />

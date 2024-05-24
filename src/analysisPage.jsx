@@ -3,14 +3,13 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
+import lottie from "lottie-web";
+import loader from "./assets/analyzing.json";
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw'; // Import rehype-raw
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import './analysisPage.css';
-
-
-
-
 
 function highlightEntities(text, entities, visibleEntities) {
   if (!Array.isArray(entities)) {
@@ -43,62 +42,88 @@ function AnalysisPage() {
   const { state } = location;
   const [analyticsData, setAnalyticsData] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const [loadingText, setLoadingText] = useState('Loading');
   const navigate = useNavigate();
   const [fileObject, setFileObject] = useState(null);
 
   const [visibleEntities, setVisibleEntities] = useState([]);
-  const [anonymizedContent, setAnonymizedContent] = useState(<p>No anonymized data received</p>);
+  const [anonymizedContent, setAnonymizedContent] = useState('No anonymized data received'); // Changed to string
   const [selectedOption, setSelectedOption] = useState('');
   const [responseText, setResponseText] = useState('');
   const [entityMapping, setEntityMapping] = useState('');
   const [filepair, setFilepair] = useState('');
-  const [allentities,setAllentities] = useState('');
+  const [allentities, setAllentities] = useState('');
   
- 
+
+  const dummyTexts = [
+    'Fetching data',
+    'Preparing content',
+    'Analyzing information',
+    'Loading assets',
+    'Processing request'
+  ];
+
+  React.useEffect(() => {
+    const animationContainer = document.querySelector("#loader");
+
+    if (animationContainer && !animationContainer.querySelector("svg")) {
+      lottie.loadAnimation({
+        container: animationContainer,
+        autoplay: true,
+        animationData: { ...loader },
+      });
+    }
+  }, [loading]);
 
   const showToast = (message) => {
     toast.error(message, {
       position: "top-right",
       autoClose: 4000,
       hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
+      closeOnClick,
+      pauseOnHover,
+      draggable,
       progress: undefined,
       theme: "dark",
     });
   };
 
-  const convertTextToFile = () => {
-   
-    const file = new File([responseText], `anonymizedFile.txt`, { type: "text/plain" });
-    // console.log("File object:", file);
-    setFileObject(file);
-    
-  };
-
-
-  
 
   useEffect(() => {
-    if(responseText)
-    {
+    const intervalId = setInterval(() => {
+      setLoadingText(prevText => {
+        const currentIndex = dummyTexts.indexOf(prevText);
+        if (currentIndex === dummyTexts.length - 1) {
+          return dummyTexts[0];
+        } else {
+          return dummyTexts[currentIndex + 1];
+        }
+      });
+    }, 1000); // Change text every 1000 milliseconds
+
+    // Clean up by clearing the interval when component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const convertTextToFile = () => {
+    const file = new File([responseText], `anonymizedFile.txt`, { type: "text/plain" });
+    setFileObject(file);
+  };
+
+  useEffect(() => {
+    if(responseText) {
       sessionStorage.setItem('outputFile', responseText);
     }
     convertTextToFile();
   }, [responseText]);
 
-
-
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
-    // console.log(selectedOption);
   };
 
   function handlePrint() {
     const printWindow = window.open('', '_blank');
-    const encodedText = encodeHtml(responseText); // Encode the placeholders
+    const encodedText = encodeHtml(responseText);
     const htmlContent = `
       <!DOCTYPE html>
       <html lang="en">
@@ -109,9 +134,9 @@ function AnalysisPage() {
         <style>
           body {
             @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-            white-space: pre-wrap; /* Preserve line breaks and spaces */
-            font-family:  Montserrat; /* Choose your preferred font */
-            font-size: 12px; /* Adjust font size if necessary */
+            white-space: pre-wrap;
+            font-family:  Montserrat;
+            font-size: 12px;
             margin:50px;
             text-align:justify;
           }
@@ -126,39 +151,38 @@ function AnalysisPage() {
     printWindow.document.close();
     printWindow.print();
   }
-  
+
   function encodeHtml(html) {
-    return html.replace(/</g, '&lt;').replace(/>/g, '&gt;'); // Replace '<' with '&lt;' and '>' with '&gt;'
+    return html.replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
-  function onSave(){
+  function onSave() {
     toast.success(`File Saved Successfully!`);
   }
 
   const handleSubmit = async () => {
     if (!selectedOption) {
       alert('Please choose an anonymization type.');
-      return; 
+      return;
     }
 
     try {
-      
       const data = {
         text: state.originalData.text,
         entities: visibleEntities,
         type: selectedOption,
         all_entities: state.anonymizedData
       };
-      const response = await axios.post(`${import.meta.env.VITE_REACT_APP_ML_API_KEY}/anonymize`, data);  
+      setLoading(true);
+      const response = await axios.post(`${import.meta.env.VITE_REACT_APP_ML_API_KEY}/anonymize`, data);
       setResponseText(response.data.anonymized_text.text);
       setAnalyticsData(response.data.anonymized_text.text);
-      // console.log(response.data.entity_mapping);
       const stringifiedEntityMapping = JSON.stringify(response.data.entity_mapping);
-      setEntityMapping(stringifiedEntityMapping); 
-      console.log("1.",responseText)
+      setEntityMapping(stringifiedEntityMapping);
+      setLoading(false);
     } catch (error) {
-      // console.error('Error:', error);
-    
+      console.error('Error:', error);
+      setLoading(false);
     }
   };
 
@@ -167,19 +191,19 @@ function AnalysisPage() {
       console.error("Entity mapping or file object is missing");
       return;
     }
-  
+
     try {
       const formData = new FormData();
       formData.append("entity", entityMapping);
       formData.append("status", "anonymized");
       formData.append("resultdata", fileObject);
       const filepairid = sessionStorage.getItem("filepairid");
-  
+
       if (!filepairid) {
         console.error("File pair ID is missing");
         return;
       }
-  
+
       const response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BACKEND_API_KEY}/update/filepair/${filepairid}`,
         formData,
@@ -189,18 +213,17 @@ function AnalysisPage() {
           }
         }
       );
-  
+
       if (response.status >= 200 && response.status < 300) {
         console.log("File pair updated successfully");
       } else {
         console.error(`Failed to update file pair. Status code: ${response.status}`);
       }
-  
     } catch (error) {
       handleApiError(error);
     }
   };
-  
+
   const handleApiError = (error) => {
     if (error.response) {
       console.error("Response data:", error.response.data);
@@ -213,30 +236,22 @@ function AnalysisPage() {
     }
     console.error("Error config:", error.config);
   };
-  
-  
-  
+
   useEffect(() => {
     if (entityMapping && fileObject) {
       updateFilePair();
     }
-  }, [fileObject]); // Ensure dependencies are correct
-  
-
-
-
-  
+  }, [fileObject]);
 
   useEffect(() => {
     if (state && state.anonymizedData) {
       const { text } = state.originalData;
       const anonymizedText = highlightEntities(text, state.anonymizedData, visibleEntities);
-      setAnonymizedContent(<div className="anonymizedDataField" dangerouslySetInnerHTML={{ __html: anonymizedText }}></div>);
+      setAnonymizedContent(anonymizedText);
     }
   }, [state, visibleEntities]);
 
   const handleToggleEntity = (entity) => {
-    // console.log("Toggling entity:", entity);
     setVisibleEntities(prevVisibleEntities =>
       prevVisibleEntities.includes(entity)
         ? prevVisibleEntities.filter(item => item !== entity)
@@ -266,13 +281,10 @@ function AnalysisPage() {
       setVisibleEntities(uniqueEntities);
     }
   }, []);
-  // console.log("Visible entities:", visibleEntities);
 
   return (
-
-    
     <div className="analysisPage">
-    <ToastContainer
+      <ToastContainer
         position="top-right"
         autoClose={4000}
         limit={5}
@@ -286,39 +298,29 @@ function AnalysisPage() {
         theme="dark"
       />
       {responseText ? (
-        
         <div className='finalResult'>
-          <div  className="finaltext">
-          {responseText}
+          <div className="finaltext">
+            {responseText}
           </div>
-          
           <div className="finalResult-buttons">
-          <button onClick={onSave} className="btn1" >
-          Save
-        </button>
-
-        <button onClick={handlePrint} className="btn1" >
-          Print
-        </button>
+            <button onClick={onSave} className="btn1">
+              Save
+            </button>
+            <button onClick={handlePrint} className="btn1">
+              Print
+            </button>
           </div>
-
-          
-        </div> 
-        
+        </div>
       ) : (
         <>
           <h3>ANONYMIZER</h3>
           <div className="analysisPageSections">
             <div className="analysisPage-leftSection">
               <div className="dataBoxes">
-                {/* <div className="originalData box">
-                  <h3>Original Data</h3>
-                  <div className="originalDataField">{originalContent}</div>
-                </div> */}
-                {/* <h3>Anonymized Data</h3> */}
                 <div className="anonymizedData box">
-                  {anonymizedContent}
-                  
+                  <ReactMarkdown  className="markdown-content" remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                    {anonymizedContent}
+                  </ReactMarkdown>
                 </div>
               </div>
             </div>
@@ -329,7 +331,6 @@ function AnalysisPage() {
                 </div>
                 <div className="entitiesScrollBar">
                   <div className="entityButtonsContainer">
-                    
                     {uniqueEntities.map(entity => (
                       <button
                         key={entity}
@@ -349,25 +350,32 @@ function AnalysisPage() {
                   value={selectedOption}
                   onChange={handleOptionChange}
                   required
-                  // defaultValue="replace"
                 >
                   <option value="" disabled>Choose Anonymization Type</option>
                   <option value="replace">Replace</option>
                   <option value="redact">Redact</option>
-                  <option value="hash">Hash</option>
+                 
                   <option value="faker">Faker</option>
                 </select>
               </div>
             </div>
           </div>
+          {loading ? (
+          <><div className="loaderContainer">
+          <div id="loader" style={{ width: 140, height: 100 }} />
+          <p style={{color:"black"}}>{loadingText}</p></div></>
+          
+        ) : (<>
           <button className="btn1" onClick={handleSubmit}>
             SUBMIT
           </button>
-          <button className="btn-analytics" >Advanced analytics</button>
-          </>
+          <button className="btn-analytics">Advanced analytics</button>
+        </>
+        )}
+        </>
       )}
-    {/* {analyticsData.length > 0 && <AdvancedAnalytics analyticsData={analyticsData} />} */}
     </div>
   );
 }
+
 export default AnalysisPage;

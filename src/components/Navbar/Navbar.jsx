@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import './Navbar.css';
-import Modal from '../../components/Modal/modal';
+
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -12,17 +12,9 @@ const Navbar = () => {
   const [role, setRole] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleDeanonymyzeClick = () => {
-    if (isLoggedIn) {
-      setShowModal(true);
-    } else {
-      navigate('/login');
-    }
-  };
+  
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
+ 
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -75,7 +67,7 @@ const Navbar = () => {
           <NavLink to="/" style={({ isActive }) => ({ color: isActive ? "#00C9B8" : "black" })}>Home</NavLink>
           <NavLink to="/dashboard" style={({ isActive }) => ({ color: isActive ? "#00C9B8" : "black" })}>Dashboard</NavLink>
           <NavLink to="/anonymize" style={({ isActive }) => ({ color: isActive ? "#00C9B8" : "black" })}>Anonymize</NavLink>
-          <NavLink to="/deanonymize" style={({ isActive }) => ({ color: isActive ? "#00C9B8" : "black" })} onClick={handleDeanonymyzeClick}>De-Anonymize</NavLink>
+          <NavLink to="/deanonymize" style={({ isActive }) => ({ color: isActive ? "#00C9B8" : "black" })}>De-Anonymize</NavLink>
           <NavLink to="/guidelines" style={({ isActive }) => ({ color: isActive ? "#00C9B8" : "black" })}>Guidelines</NavLink>
         </>
       );
@@ -107,7 +99,7 @@ const Navbar = () => {
           )}
         </div>
       </div>
-      {showModal && <Modal handleCloseModal={handleCloseModal} />}
+     
     </>
   );
 };

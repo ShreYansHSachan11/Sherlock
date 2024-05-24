@@ -1,28 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './deanonymze.css';
 import lottie from "lottie-web";
-import uploadFile from "./assets/upload.json";
 import loader from "./assets/analyzing.json";
-import "./deanonymze.css";
+import Card from './components/card/card1';
 
-const fileTypes = ["JPG"];
+const DeanonymizePage = () => {
+  const [filePairs, setFilePairs] = useState([]);
+  const [selectedFilePair, setSelectedFilePair] = useState(null);
+  const [originalFile, setOriginalFile] = useState('');
+  const [deanonymizedFile, setDeanonymizedFile] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState('Loading');
 
-function Homepage() {
-  const navigate = useNavigate();
-  const inputFileContent = sessionStorage.getItem('inputFile');
-  const outputFileContent = sessionStorage.getItem('outputFile');
 
-  useEffect(() => {
-    // console.log(inputFileContent);
-  }, [inputFileContent]);
-
-  useEffect(() => {
-    // console.log(outputFileContent);
-  }, [outputFileContent]);
-
-  const [loading, setLoading] = useState(true);
-  const [loadingTextIndex, setLoadingTextIndex] = useState(0); // Index to track dummy text
   const dummyTexts = [
     'Fetching data',
     'Preparing content',
@@ -31,87 +22,137 @@ function Homepage() {
     'Processing request'
   ];
 
-  useEffect(() => {
-    if (loading) {
-      const interval = setInterval(() => {
-        // Update loading text every second
-        setLoadingTextIndex(prevIndex => (prevIndex + 1) % dummyTexts.length);
-      }, 1000);
+  React.useEffect(() => {
+    const animationContainer = document.querySelector("#loader");
 
-      // Simulate loading completion after 5 seconds
-      setTimeout(() => {
-        setLoading(false);
-      }, 5000);
-
-      return () => clearInterval(interval);
+    if (animationContainer && !animationContainer.querySelector("svg")) {
+      lottie.loadAnimation({
+        container: animationContainer,
+        autoplay: true,
+        animationData: { ...loader },
+      });
     }
   }, [loading]);
 
+
   useEffect(() => {
-    // Load animation when loading state changes
-    if (loading) {
-      const animation = lottie.loadAnimation({
-        container: document.getElementById("loader"),
-        renderer: "svg",
-        loop: true,
-        autoplay: true,
-        animationData: loader,
+    const fetchFilePairs = async () => {
+      try {
+        const user = sessionStorage.getItem('id');
+        const response = await axios.get(`https://sherlock-backend-4.onrender.com/${user}`);
+        const userData = response.data.user;
+        setFilePairs(userData.filePairs || []);
+        
+      } catch (error) {
+        console.error('Error fetching file pairs:', error);
+      }
+    };
+
+    fetchFilePairs();
+  }, []);
+
+  const handleFilePairClick = async (filePairId) => {
+    const selectedPair = filePairs.find(pair => pair.filePairId === filePairId);
+    setSelectedFilePair(selectedPair);
+    
+    setLoading(true);
+    
+    try {
+      setOriginalFile(selectedPair.report);
+      const response = await axios.get(selectedPair.report, { responseType: 'blob' });
+      
+
+
+      const formData = new FormData();
+      formData.append('file', response.data);
+      const ocrResponse = await axios.post(`${import.meta.env.VITE_REACT_APP_ML_API_KEY}/i2t`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'accept': 'application/json',
+        },
+      });
+      const imageText = ocrResponse.data;
+
+      const deAnoFormData = new FormData();
+      deAnoFormData.append('text', imageText);
+      deAnoFormData.append('entity_mapping', selectedPair.entity);
+
+      const deAnoResponse = await axios.post(`${import.meta.env.VITE_REACT_APP_ML_API_KEY}/de-ano`, deAnoFormData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'accept': 'application/json',
+        },
       });
 
-      return () => animation.destroy();
+      setDeanonymizedFile(deAnoResponse.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.error('Error:', error);
+      alert('An error occurred. Please try again later.');
     }
-  }, [loading]);
+  };
 
   return (
-    <div className="deanoPage">
-
-    
-    <div className="de-container">
-      <div className="de-container-content">
-        <h3>DE-ANONYMIZER</h3>
-        <div className="input-sections">
+    <div className="deanonymize-page">
+      
+      {!selectedFilePair && (
+        <>
+        <h2>Choose the file you want to De-Anonymize</h2>
+        <Card fileData={filePairs} onFilePairClick={handleFilePairClick} />
+        </>
+      )}
+      {selectedFilePair && (
+        <div className="deanonymize-section">
          
-
+         
+          <div className='fileDataContainer'>
+        <div className="input-sections">
+          <div className="inputContainer">
+        <h4>Report {`${selectedFilePair.filePairId}`}</h4>
         <div className="input-section">
-            <h4>Original </h4>
-            {outputFileContent}
-         </div>
-          {loading ? (
-            <div className="loaderContainer">
-              {/* Loader animation */}
-              <div id="loader" style={{ width: 140, height: 100 }} />
-              {/* Display loading text */}
-              <p style={{ color: "black" }}>{dummyTexts[loadingTextIndex]}</p>
-            </div>
-          ) : (<>
-            <div className="input-section">
-              <h4>Deanonymized</h4>
-              {inputFileContent}
-            </div>
-            <div className="buttonSection">
-          <button className="btn1" >
-            Back To Files
-          </button>
-          <button className="btn1" >
-            Share
-          </button>
-          <button className="btn1" >
-            Print
-          </button>
-          <button className="btn1" >
-            Delete
-          </button>
-          </div>
-            
-            </>
+
+          {originalFile && (
+            <>
+             
+             
+                <img src={originalFile} alt="Original File" />
+                </>
+               
+             
             
           )}
-         
+           </div>
+           </div>
+           {loading ? (
+          <><div className="loaderContainer">
+          <div id="loader" style={{ width: 140, height: 100 }} />
+          <p style={{color:"black"}}>{loadingText}</p></div></>
+          
+        ) : (<>
+        <div className="inputContainer">
+        <h4>Deanonymized File</h4>
+           <div className="input-section">
+          {deanonymizedFile && (
+            <>
+             
+              {deanonymizedFile instanceof Blob && deanonymizedFile.type.includes('image') ? (
+                <img src={URL.createObjectURL(deanonymizedFile)} alt="Deanonymized File" />
+              ) : (
+                <pre>{deanonymizedFile}</pre>
+              )}
+            </>
+          )}
+          </div>
+          </div>
+          </>
+        )}
+          </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
     </div>
   );
-}
+};
 
-export default Homepage;
+export default DeanonymizePage;

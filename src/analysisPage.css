@@ -45,13 +45,15 @@
 }
 
 .box {
-  width: 50vw;
+  width: 70vw;
   height: 50vh;
   /* background-color: grey; */
   margin: 15px;
   border: 2px solid grey;
   padding: 10px;
-  overflow:scroll;
+  overflow: scroll;
+  font-size: 14px;
+  text-align: left;
   white-space: pre;
   scroll-behavior: smooth;
   scrollbar-width: none;
@@ -265,4 +267,8 @@ select{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.markdown-content{
+  white-space:pre-wrap;
 }

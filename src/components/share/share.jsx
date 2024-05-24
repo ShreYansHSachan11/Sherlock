@@ -9,6 +9,7 @@ const SharePage = () => {
   const [fileData, setFileData] = useState('');
   const [responseFile, setResponseFile] = useState(null);
   const [isImageFile, setIsImageFile] = useState(false);
+  const [isUploading, setIsUploading] = useState(false); // State to manage upload status
 
   useEffect(() => {
     const fetchFileData = async () => {
@@ -38,6 +39,13 @@ const SharePage = () => {
   };
 
   const handleUpload = async () => {
+    if (!responseFile) {
+      alert('Please select a file to upload.');
+      return;
+    }
+
+    setIsUploading(true); // Disable the button and show "Pending"
+
     const formData = new FormData();
     formData.append('report', responseFile);
 
@@ -46,6 +54,9 @@ const SharePage = () => {
       alert('File uploaded and sent successfully');
     } catch (error) {
       console.error('Error uploading file:', error);
+      alert('Error uploading file');
+    } finally {
+      setIsUploading(false); // Re-enable the button and reset text
     }
   };
 
@@ -60,14 +71,16 @@ const SharePage = () => {
         {isImageFile ? (
           <img src={fileData} alt="Received file" />
         ) : (
-          <pre>{fileData}</pre>
+          <pre className='recievedText'>{fileData}</pre>
         )}
       </div>
       <div className="upload-section">
         <h3>Upload Response File</h3>
         <div className="upload">
           <input type="file" onChange={handleFileChange} />
-          <button onClick={handleUpload}>Send Report</button>
+          <button onClick={handleUpload} disabled={isUploading}>
+            {isUploading ? 'Pending...' : 'Send Report'}
+          </button>
         </div>
       </div>
     </div>

@@ -53,12 +53,12 @@
     color: #333;
   }
   
-  .input-sections {
+  .deanonymize-page .input-sections {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    /* margin-top: 70px; */
+    margin-top: 40px;
   }
   
   .input-sections h6{
@@ -151,4 +151,33 @@
   align-items: center;
   text-align: center;
   font-size: 14px;
+}
+
+.deanonymize-page .input-section{
+  overflow: scroll;
+  scrollbar-width: none;
+  justify-content: unset;
+  align-items: unset;
+}
+
+.deanonymize-page pre{
+  display: block;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  overflow: auto;
+  font-size: 14px;
+  white-space: pre-wrap;
+  font-size: 14px;
+  text-align: left;
+  padding: 0 10px;
+  scrollbar-width: none;
+}
+
+.deanonymize-page h2{
+  margin:20px;
+}
+
+.deanonymize-page{
+  /* height: 100vw; */
+  justify-content: space-around;
 }

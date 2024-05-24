@@ -56,8 +56,8 @@
     border-radius: 4px;
   }
   
-  .upload-section button:hover {
-    background-color: #047067;
+  .upload-section button:disabled {
+    background-color: #6b7776;
   }
   
 
@@ -67,4 +67,8 @@
    align-items: center;
    flex-direction: column;
   }
+
+.share-page .recievedText{
+  text-align: left;
+}
 
