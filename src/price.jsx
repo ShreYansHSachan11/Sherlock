@@ -8,7 +8,7 @@ import { FileUploader } from "react-drag-drop-files";
 import Uploader from './components/fileuploader/upload'
 import "./price.css";
 
-const fileTypes = ["JPG"];
+const fileTypes = ["JPG","PDF"];
 
 function Homepage() {
   const navigate = useNavigate();

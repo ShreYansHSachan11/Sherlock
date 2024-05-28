@@ -48,24 +48,20 @@ const WelcomeSection = () => {
               <img src={hero1} alt="" />
               <h6>Selective Anonymization</h6>
               <p>
-                It was popularised in the 1960s with the release of Letraset
-                sheets containing
+              Selective Anonymization allows users to anonymize specific data within a document or image. This feature ensures sensitive information is masked while preserving the overall context, making it ideal for fields like healthcare and legal, where partial data visibility is crucial.
               </p>
             </div>
             <div className="whyus-card">
               <img src={hero2} alt="" />
               <h6>3rd Party Sharing</h6>
               <p>
-                It was popularised in the 1960s with the release of Letraset
-                sheets containing
-              </p>
+              3rd Party Sharing allows secure sharing of anonymized data with external parties, ensuring privacy and compliance.              </p>
             </div>
             <div className="whyus-card">
               <img src={hero3} alt="" />
               <h6>Authorised De-anonymization</h6>
               <p>
-                It was popularised in the 1960s with the release of Letraset
-                sheets containing
+              Authorized De-anonymization ensures only verified users can revert data to its original form, maintaining security and control over sensitive information.
               </p>
             </div>
           </div>
