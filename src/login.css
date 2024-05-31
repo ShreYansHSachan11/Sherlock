@@ -4,8 +4,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-   color: #fff
-   ;
+   color: #fff;
+   flex-direction: column;
 }
 
 .loginPage::after{
@@ -26,4 +26,11 @@
 
 .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
     border-color: #000 !important;
+}
+
+.loginPage .note{
+    font-size: 14px;
+    color: #695f5f;
+    margin: 44px;
+    line-height: 0.5;
 }

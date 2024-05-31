@@ -213,6 +213,13 @@ const LoginPage = () => {
         )}
       </Box>
     </Container>
+
+     <div className="note">
+    <p>NOTE: You can use this login Id and password for direct Login. </p>
+    <p>Username: aviral@gmail.com</p>
+    <p>Password: aviral@123</p>
+     </div>
+   
     </div>
     </>
   );

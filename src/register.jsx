@@ -93,24 +93,26 @@ const Form = (props) => {
 
   const handleCAP = useCallback(
     (e) => {
-      if (fname.match(namepattern)) setFnameerr(false);
-      if (lname.match(namepattern)) setLnameerr(false);
-      if (email.match(emailpattern)) setMailerr(false);
+      // if (fname.match(namepattern)) setFnameerr(false);
+      // if (lname.match(namepattern)) setLnameerr(false);
+      // if (email.match(emailpattern)) setMailerr(false);
       if (!fname || !lname || !password || !cpassword || !usertype || !email) {
         showToast("Please Fill all the Entries");
-      } else if (!fname.match(namepattern)) {
-        setFnameerr(true);
-        showToast("Please Enter a Valid First Name");
-      } else if (!lname.match(namepattern)) {
-        setLnameerr(true);
-        showToast("Please Enter a Valid Last Name");
-      } else if (!email.match(emailpattern)) {
-        setMailerr(true);
-        showToast("Please Enter a Valid Email");
-      } else if (!password.match(passwordpattern)) {
-        setPassworderr(true);
-        showToast("Please Enter a Valid Password");
-      } else {
+      } 
+      // else if (!fname.match(namepattern)) {
+      //   setFnameerr(true);
+      //   showToast("Please Enter a Valid First Name");
+      // } else if (!lname.match(namepattern)) {
+      //   setLnameerr(true);
+      //   showToast("Please Enter a Valid Last Name");
+      // } else if (!email.match(emailpattern)) {
+      //   setMailerr(true);
+      //   showToast("Please Enter a Valid Email");
+      // } else if (!password.match(passwordpattern)) {
+      //   setPassworderr(true);
+      //   showToast("Please Enter a Valid Password");
+      // } 
+      else {
         
        
         setLoading(true);
@@ -217,7 +219,7 @@ const Form = (props) => {
                           label="First Name"
                           variant="outlined"
                           type="name"
-                          error={fnameerr}
+                          // error={fnameerr}
                           autoComplete="off"
                           helperText={
                             fnameerr ? "Enter Correct First Name" : ""
@@ -225,8 +227,8 @@ const Form = (props) => {
                           value={fname}
                           onChange={(e) => {
                             setFname(e.target.value);
-                            const namePattern = /^[A-Za-z]{3,20}$/;
-                            setFnameerr(!namePattern.test(e.target.value));
+                            // const namePattern = /^[A-Za-z]{3,20}$/;
+                            // setFnameerr(!namePattern.test(e.target.value));
                           }}
                           sx={{ color: color, width: "100%", background:"ghostwhite" }}
                         />
@@ -238,14 +240,14 @@ const Form = (props) => {
                           label="Last Name"
                           variant="outlined"
                           type="name"
-                          error={lnameerr}
+                          // error={lnameerr}
                           helperText={lnameerr ? "Enter Correct Last Name" : ""}
                           value={lname}
                           autoComplete="off"
                           onChange={(e) => {
                             setLname(e.target.value);
-                            const namePattern = /^[A-Za-z]{3,20}$/;
-                            setLnameerr(!namePattern.test(e.target.value));
+                            // const namePattern = /^[A-Za-z]{3,20}$/;
+                            // setLnameerr(!namePattern.test(e.target.value));
                           }}
                           sx={{ color: color, width: "100%", background:"ghostwhite" }}
                         />
@@ -257,14 +259,14 @@ const Form = (props) => {
                           label="Email"
                           variant="outlined"
                           type="email"
-                          error={mailerr}
+                          // error={mailerr}
                           autoComplete="off"
                           helperText={mailerr ? "Enter Correct Email" : ""}
                           value={props.email}
                           onChange={(e) => {
                             setEmail(e.target.value);
-                            const emailpattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                            setMailerr(!emailpattern.test(e.target.value));
+                            // const emailpattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                            // setMailerr(!emailpattern.test(e.target.value));
                           }}
                           sx={{ color: color, width: "100%", background:"ghostwhite" }}
                         />
@@ -277,19 +279,19 @@ const Form = (props) => {
                           label="Password"
                           variant="outlined"
                           type="password"
-                          error={passworderr}
+                          // error={passworderr}
                           helperText={
                             passworderr ? "Enter Correct Password" : ""
                           }
                           value={password}
                           onChange={(e) => {
                             setPassword(e.target.value);
-                            const passwordpattern =
-                              /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@.])[A-Za-z\d@.]{8,}$/;
+                            // const passwordpattern =
+                            //   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@.])[A-Za-z\d@.]{8,}$/;
 
-                            setPassworderr(
-                              !passwordpattern.test(e.target.value)
-                            );
+                            // setPassworderr(
+                            //   !passwordpattern.test(e.target.value)
+                            // );
                           }}
                           sx={{ color: color, width: "100%", background:"ghostwhite" }}
                         />
@@ -302,19 +304,19 @@ const Form = (props) => {
                           label="Confirm Password"
                           variant="outlined"
                           type="password"
-                          error={cpassworderr}
+                          // error={cpassworderr}
                           helperText={
                             cpassworderr ? "Enter Correct Password" : ""
                           }
                           value={props.cpassword}
                           onChange={(e) => {
                             setCpassword(e.target.value);
-                            const passwordpattern =
-                              /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@.])[A-Za-z\d@.]{8,}$/;
+                            // const passwordpattern =
+                            //   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@.])[A-Za-z\d@.]{3,}$/;
 
-                            setCpassworderr(
-                              !passwordpattern.test(e.target.value)
-                            );
+                            // setCpassworderr(
+                            //   !passwordpattern.test(e.target.value)
+                            // );
                           }}
                           sx={{ color: color, width: "100%", background:"ghostwhite" }}
                         />
