@@ -137,7 +137,7 @@
     color:black;
     text-align: left;
     font-size: medium;
-    list-style: disc;
+    list-style: none;
   }
 
   .upload-section{
@@ -147,3 +147,5 @@
     flex-direction: column;
     justify-content: space-evenly;
   }
+
+ 

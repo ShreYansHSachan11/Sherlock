@@ -148,12 +148,14 @@ function Homepage() {
       sessionStorage.setItem('filepairid', randomId.toString());
       const token = sessionStorage.getItem("token");
       const filepairid = randomId;
+      const date = new Date().toISOString().split('T')[0];
       try {
         const formData = new FormData();
         // formData.append("entity", "hello");
         formData.append("status", "Uploaded");
         formData.append('filePairId', filepairid); 
         // formData.append("userId", id);
+        formData.append("date", date);
         formData.append("file", fileObject);
         // formData.append("file", fileObject);
         const response = await axios.post(
@@ -242,6 +244,7 @@ function Homepage() {
       sessionStorage.setItem('filepairid', randomId.toString());
       const token = sessionStorage.getItem("token");
       const filepairid = randomId;
+      const date = new Date().toISOString().split('T')[0];
       try {
         const formData = new FormData();
         formData.append("file", image);
@@ -249,6 +252,7 @@ function Homepage() {
         formData.append('filePairId', filepairid); 
         formData.append("status", "Uploaded");
         formData.append("entity", "hello");
+        formData.append("date", date);
         // formData.append("status", "anonymized");
         formData.append('resultdata', image);
         // formData.append("textdata", "");

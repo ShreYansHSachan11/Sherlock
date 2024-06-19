@@ -41,6 +41,33 @@ const Card = ({ fileData }) => {
     } catch (error) {
       console.error('Error sharing file:', error);
     }
+    updateFilePair();
+  };
+
+  const updateFilePair = async (filepairid) => {
+    try {
+      const formData = new FormData();
+      
+      formData.append("sharedFileEmail",email );
+      
+      const response = await axios.post(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_API_KEY}/update/filepair/${currentFilePairId}`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      );
+
+      if (response.status >= 200 && response.status < 300) {
+        console.log("File pair updated successfully");
+      } else {
+        console.error(`Failed to update file pair. Status code: ${response.status}`);
+      }
+    } catch (error) {
+      handleApiError(error);
+    }
   };
 
   const toggleFilePairDetails = (filePairId) => {
@@ -72,14 +99,14 @@ const Card = ({ fileData }) => {
               
             </p>
             
-            <p>{getUniqueEmails(file.sharedFileEmailsData).join(', ')}</p>
-            <p>{index+2}/05/24</p>
+            <p>{getUniqueEmails(file.sharedFileEmailsData).join(', ') || `Not Shared`}</p>
+            <p>{file.date}</p>
           </div>
-          {/* Details Section */}
+          
           {openFilePair === file.filePairId && (
             <div key={`${file.filePairId}-details`} className="details">
-              <ul>
-                <li>Input File: <a href={file.inputFile}> input</a> <img src={shareIcon} className='share-icon' alt="Share Icon" onClick={() => handleShareClick(file.filePairId)} /></li>
+              <ul >
+                <li>Input File: <a href={file.inputFile}> input</a> </li>
                 <li>Anonymized File: <a href={file.resultdata}>Output</a><img src={shareIcon} className='share-icon' alt="Share Icon" onClick={() => handleShareClick(file.filePairId)} /></li>
                 <li>Report: <a href={file.report}>Report</a></li>
               </ul>
