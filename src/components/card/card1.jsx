@@ -17,7 +17,7 @@ const Card = ({ fileData, onFilePairClick }) => {
           </p>
           <p>{file.sharedFrom}</p>
           <p>report</p>
-          <p>21/05/24</p>
+          <p>19/06/2024</p>
         </div>
       ))}
     </div>

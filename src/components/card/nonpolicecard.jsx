@@ -45,7 +45,7 @@ const Card = () => {
           </p>
           <p>{file.sharedFromEmail}</p>
           
-          <p>21/05/24</p>
+          <p>19/06/24</p>
         </div>
       ))}
     </div>
