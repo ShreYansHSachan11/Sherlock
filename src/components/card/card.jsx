@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './card.css';
 import fileIcon from "../../assets/dashboardFile.png";
 import shareIcon from '../../assets/share.png';
@@ -9,6 +10,8 @@ const Card = ({ fileData }) => {
   const [email, setEmail] = useState('');
   const [currentFilePairId, setCurrentFilePairId] = useState('');
   const [openFilePair, setOpenFilePair] = useState(null);
+  const navigate = useNavigate();
+
 
   const handleShareClick = (filePairId) => {
     setCurrentFilePairId(filePairId);
@@ -78,6 +81,10 @@ const Card = ({ fileData }) => {
     return Array.from(new Set(emails));
   };
 
+  const handleFileClick = (fileUrl) => {
+    navigate(`/file-viewer/${encodeURIComponent(fileUrl)}`);
+  };
+
   return (    
     <div>
       {fileData.map((file, index) => (
@@ -106,9 +113,9 @@ const Card = ({ fileData }) => {
           {openFilePair === file.filePairId && (
             <div key={`${file.filePairId}-details`} className="details">
               <ul >
-                <li>Input File: <a href={file.inputFile}> input</a> </li>
-                <li>Anonymized File: <a href={file.resultdata}>Output</a><img src={shareIcon} className='share-icon' alt="Share Icon" onClick={() => handleShareClick(file.filePairId)} /></li>
-                <li>Report: <a href={file.report}>Report</a></li>
+                <li>Input File: <a href="#" onClick={(e) => { e.preventDefault(); handleFileClick(file.inputFile); }}>input</a> </li>
+                <li>Anonymized File: <a href="#" onClick={(e) => { e.preventDefault(); handleFileClick(file.resultdata); }}>Output</a><img src={shareIcon} className='share-icon' alt="Share Icon" onClick={() => handleShareClick(file.filePairId)} /></li>
+                <li>Report: <a href="#" onClick={(e) => { e.preventDefault(); handleFileClick(file.report); }}>Report</a></li>
               </ul>
             </div>
           )}

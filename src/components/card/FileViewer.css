@@ -1,0 +1,25 @@
+.file-viewer{
+    width:100vw;
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.file-viewer img{
+    width: 60vw;
+    height: fit-content;
+    border:1px solid black;
+    margin: 80px 40px;
+}
+
+.file-viewer pre{
+    /* width:60vw; */
+    height: 85vh;
+    border:1px solid black;
+   margin: 80px 40px;
+   white-space:pre-wrap;
+   font-size: 14px;
+   padding: 30px;
+   scrollbar-width: thin;
+}

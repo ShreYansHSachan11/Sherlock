@@ -8,7 +8,7 @@ import { FileUploader } from "react-drag-drop-files";
 import Uploader from './components/fileuploader/upload'
 import "./price.css";
 
-const fileTypes = ["JPG","PDF"];
+const fileTypes = ["JPG","PDF", "PNG"];
 
 function Homepage() {
   const navigate = useNavigate();
@@ -337,7 +337,7 @@ function Homepage() {
         <h3>ANONYMIZER</h3>
         <div className="input-sections">
           <div className="input-section" onClick={handleTextSectionClick}
-            style={getSectionStyle('text')}>
+           >
             <textarea
               className="text-area"
               value={text}
@@ -348,7 +348,7 @@ function Homepage() {
           </div>
           {/* <h6 className="h6-center">OR</h6> */}
           <div className="input-section" onClick={handleFileSectionClick} 
-            style={getSectionStyle('file')}>
+           >
             <div id="uploadFile" style={{ width: 280, height: 280 }} />
             <FileUploader
               handleChange={handleChange}

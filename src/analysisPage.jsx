@@ -344,6 +344,7 @@ function AnalysisPage() {
                 </div>
               </div>
               <div className="anonymizedButtons">
+                <h6>Choose Anonymization Type:</h6>
                 <select
                   name="anonymizationType"
                   id="anonymizationType"
@@ -351,10 +352,10 @@ function AnalysisPage() {
                   onChange={handleOptionChange}
                   required
                 >
-                  <option value="" disabled>Choose Anonymization Type</option>
-                  <option value="replace">Replace</option>
+                
+                  <option  value="replace" selected >Replace</option>
                   <option value="redact">Redact</option>
-                 
+    
                   <option value="faker">Faker</option>
                 </select>
               </div>

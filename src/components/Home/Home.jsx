@@ -16,6 +16,7 @@ import Deanonymize from '../../deanonymze';
 import RequireLogin from './requireLogin';
 import NonPoliceDashboard from '../../nonpolicedashboard'; // Import the new component
 import Share from '../../components/share/share'
+import FileViewer from "../card/FileViewer";
 
 const Home = () => {
   const [role, setRole] = useState(null);
@@ -35,6 +36,7 @@ const Home = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/share/:filePairId" element={<RequireLogin><Share /></RequireLogin>} />
+          <Route path="/file-viewer/:fileUrl" element={<RequireLogin><FileViewer/></RequireLogin>} />
           
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
@@ -52,6 +54,7 @@ const Home = () => {
           <Route path="/fileData" element={<RequireLogin><FileData /></RequireLogin>} />
           <Route path="/deanonymize" element={<RequireLogin><Deanonymize /></RequireLogin>} />
           <Route path="/deanonymize/:filePairId" element={<RequireLogin><Deanonymize /></RequireLogin>} />
+          <Route path="/file-viewer/:fileUrl" element={<RequireLogin><FileViewer/></RequireLogin>} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<Navigate to="/" />} />
