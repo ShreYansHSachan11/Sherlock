@@ -158,6 +158,7 @@
   scrollbar-width: none;
   justify-content: unset;
   align-items: unset;
+  width:40vw;
 }
 
 .deanonymize-page pre{

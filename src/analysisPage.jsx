@@ -45,10 +45,9 @@ function AnalysisPage() {
   const [loadingText, setLoadingText] = useState('Loading');
   const navigate = useNavigate();
   const [fileObject, setFileObject] = useState(null);
-
   const [visibleEntities, setVisibleEntities] = useState([]);
   const [anonymizedContent, setAnonymizedContent] = useState('No anonymized data received'); // Changed to string
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState('replace');
   const [responseText, setResponseText] = useState('');
   const [entityMapping, setEntityMapping] = useState('');
   const [filepair, setFilepair] = useState('');
@@ -353,7 +352,7 @@ function AnalysisPage() {
                   required
                 >
                 
-                  <option  value="replace" selected >Replace</option>
+                  <option  value="replace">Replace</option>
                   <option value="redact">Redact</option>
     
                   <option value="faker">Faker</option>
