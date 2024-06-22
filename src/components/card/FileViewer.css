@@ -18,6 +18,7 @@
     height: 85vh;
     border:1px solid black;
    margin: 80px 40px;
+   text-align: left;
    white-space:pre-wrap;
    font-size: 14px;
    padding: 30px;
