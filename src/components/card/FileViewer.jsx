@@ -2,12 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import './FileViewer.css';
+import './FileViewer.css'
 
 const FileViewer = () => {
   const { fileUrl } = useParams();
   const [fileContent, setFileContent] = useState('');
-  const [fileType, setFileType] = useState('');
+  const [isImage, setIsImage] = useState(false);
 
   useEffect(() => {
     const fetchFileContent = async () => {
@@ -16,13 +16,9 @@ const FileViewer = () => {
         const blob = response.data;
 
         if (blob.type.includes('image')) {
-          setFileType('image');
-          setFileContent(URL.createObjectURL(blob));
-        } else if (blob.type.includes('pdf')) {
-          setFileType('pdf');
+          setIsImage(true);
           setFileContent(URL.createObjectURL(blob));
         } else {
-          setFileType('text');
           const reader = new FileReader();
           reader.onloadend = () => {
             setFileContent(reader.result);
@@ -37,20 +33,13 @@ const FileViewer = () => {
     fetchFileContent();
   }, [fileUrl]);
 
-  const renderFileContent = () => {
-    switch (fileType) {
-      case 'image':
-        return <img src={fileContent} alt="File content" />;
-      case 'text':
-        return <pre>{fileContent}</pre>;
-      default:
-        return <iframe src={fileContent} title="PDF File" width="100%" height="600px" />;
-    }
-  };
-
   return (
     <div className="file-viewer">
-      {renderFileContent()}
+      {isImage ? (
+        <img src={fileContent} alt="File content" />
+      ) : (
+        <pre>{fileContent}</pre>
+      )}
     </div>
   );
 };

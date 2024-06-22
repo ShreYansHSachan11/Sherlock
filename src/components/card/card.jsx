@@ -115,7 +115,9 @@ const Card = ({ fileData }) => {
               <ul >
                 <li>Input File: <a href="#" onClick={(e) => { e.preventDefault(); handleFileClick(file.inputFile); }}>input</a> </li>
                 <li>Anonymized File: <a href="#" onClick={(e) => { e.preventDefault(); handleFileClick(file.resultdata); }}>Output</a><img src={shareIcon} className='share-icon' alt="Share Icon" onClick={() => handleShareClick(file.filePairId)} /></li>
-                <li>Report: <a href="#" onClick={(e) => { e.preventDefault(); handleFileClick(file.report); }}>Report</a></li>
+                {file.report && (
+                  <li>Report: <a href="#" onClick={(e) => { e.preventDefault(); handleFileClick(file.report); }}>Report</a></li>
+                )}
               </ul>
             </div>
           )}
