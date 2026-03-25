@@ -4,9 +4,9 @@ import "./homepage.css";
 import Features from "../src/components/features/features";
 import anonymize from "../src/assets/demo2.svg";
 import cardimg from "../src/assets/hero.jpeg";
-import hero1 from "../src/assets/home3.svg";
-import hero2 from "../src/assets/home4.svg";
-import hero3 from "../src/assets/home5.svg";
+import hero1 from "../src/assets/p1.svg";
+import hero2 from "../src/assets/p2.svg";
+import hero3 from "../src/assets/p3.svg";
 import Footer from "./components/card/footer/footer";
 
 const WelcomeSection = () => {
@@ -45,14 +45,14 @@ const WelcomeSection = () => {
           <h2>Our Features</h2>
           <div className="whyus-box">
             <div className="whyus-card">
-              <img src={hero1} alt="" />
+              <img src={hero2} alt="" />
               <h6>Selective Anonymization</h6>
               <p>
-              Selective Anonymization allows users to anonymize specific data within a document or image. This feature ensures sensitive information is masked while preserving the overall context, making it ideal for fields like healthcare and legal, where partial data visibility is crucial.
+              Selective Anonymization allows users to anonymize specific data within a document or image. This feature ensures sensitive information is masked while preserving the overall context.
               </p>
             </div>
             <div className="whyus-card">
-              <img src={hero2} alt="" />
+              <img src={hero1} alt="" />
               <h6>3rd Party Sharing</h6>
               <p>
               3rd Party Sharing allows secure sharing of anonymized data with external parties, ensuring privacy and compliance.              </p>
