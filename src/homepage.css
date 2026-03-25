@@ -251,8 +251,26 @@ flex-wrap: wrap;
   font-size: 14px;
 }
 
-.whyus-card h6{
-  margin: 22px 0;
+.whyus-card h6 {
+  margin: 16px 0 14px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #0a2e2b;
+  letter-spacing: 0.5px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.whyus-card h6::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 3px;
+  background: #00C9B8;
+  border-radius: 2px;
 }
 
 .features-grid {
