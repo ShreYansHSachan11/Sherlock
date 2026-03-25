@@ -199,10 +199,10 @@ const Form = (props) => {
       ) : (
         <>
           <CssBaseline />
-          
-          <Container fixed style={{border:"1px solid black", display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column", marginTop:"50px", width:"700px"}}>
+          <div className="register-backdrop">
+          <Container fixed style={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column", marginTop:"10px", width:"700px"}}>
                   <div className={styles.head}>
-                    <h1 style={{marginTop:"40px"}}>Sign Up</h1>
+                    <h1 style={{marginTop:"20px"}}>Sign Up</h1>
                   </div>
                   <Box
                     component="form"
@@ -358,6 +358,7 @@ const Form = (props) => {
                   </Box>
 
                 </Container>
+          </div>
              
           
         </>

@@ -110,10 +110,10 @@ const LoginPage = () => {
   <ToastContainer/>
   <div className="loginPage">
 
-  
+  <div className="login-backdrop">
     <Container
       maxWidth="sm"
-      style={{ border: "1px solid grey",paddingTop:"32px", display: "flex", justifyContent: "center", alignItems: "center", borderRadius:"5px", color:"black" }}
+      style={{ paddingTop:"32px", display: "flex", justifyContent: "center", alignItems: "center", borderRadius:"5px", color:"black" }}
     >
       <Box
         sx={{
@@ -196,7 +196,7 @@ const LoginPage = () => {
   type="submit"
   fullWidth
   variant="contained"
-  sx={{ mt: 3, mb: 5, backgroundColor: "#5b2395", position: "relative", height: "45px", "&.Mui-disabled": {
+  sx={{ mt: 3, mb: 5, backgroundColor: "#00C9B8", position: "relative", height: "45px", "&.Mui-disabled": {
     background: "#514e4e",
     color: "#c0c0c0"
   } }}
@@ -213,6 +213,7 @@ const LoginPage = () => {
         )}
       </Box>
     </Container>
+  </div>
 
      <div className="note">
     <p>NOTE: You can use this login Id and password for direct Login. </p>

@@ -15,7 +15,7 @@
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
-    border-bottom: 1px solid black;
+    /* border-bottom: 1px solid black; */
     z-index: 10;
     background-color: #ffffff;
   }

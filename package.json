@@ -14,7 +14,6 @@
     "@emotion/styled": "^11.11.5",
     "@lottiefiles/react-lottie-player": "^3.5.3",
     "@mui/material": "^5.15.15",
-    "@testing-library/react-native": "^12.4.5",
     "axios": "^1.6.7",
     "bootstrap": "^5.1.2",
     "font-awesome": "^4.7.0",
